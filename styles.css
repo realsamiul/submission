@@ -1,0 +1,567 @@
+/* ==========================================================================
+   1. FONTS & CSS VARIABLES (The Foundation)
+   ========================================================================== */
+
+/* Font Face Declarations (Replace src with actual TWK Lausanne paths) */
+@font-face {
+  font-family: 'TWK Lausanne';
+  font-weight: 300;
+  font-display: swap;
+  src: local('TWK Lausanne 300'), url('/fonts/TWKLausanne-300.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'TWK Lausanne';
+  font-weight: 400;
+  font-display: swap;
+  src: local('TWK Lausanne 400'), url('/fonts/TWKLausanne-400.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'TWK Lausanne';
+  font-weight: 500;
+  font-display: swap;
+  src: local('TWK Lausanne 500'), url('/fonts/TWKLausanne-500.woff2') format('woff2');
+}
+
+:root {
+  /* --- Color Palette --- */
+  --color-white: #ffffff;
+  --color-off-white: #f8f8f8;
+  --color-light-grey: #e4e0db;
+  --color-dark-grey: #0d0e13;
+  --color-story: #070707;
+  --color-sand: #e0ccbb;
+  
+  /* Functional Opacities */
+  --color-white-02: hsla(0, 0%, 100%, 0.2);
+  --color-white-04: hsla(0, 0%, 100%, 0.4);
+  --color-white-06: hsla(0, 0%, 100%, 0.6);
+  --color-white-08: hsla(0, 0%, 100%, 0.8);
+  
+  --color-dark-grey-02: rgba(13, 14, 19, 0.2);
+  --color-dark-grey-04: rgba(13, 14, 19, 0.4);
+  --color-dark-grey-06: rgba(13, 14, 19, 0.6);
+  --color-dark-grey-08: rgba(13, 14, 19, 0.8);
+
+  --color-sand-06: hsla(28, 37%, 81%, 0.6);
+  --color-sand-08: hsla(28, 37%, 81%, 0.8);
+
+  /* --- Spacing System (Viewport Relative) --- */
+  --spacing-xs: 1vw;
+  --spacing-sm: 2vw;
+  --spacing-md: 4vw;
+  --spacing-lg: 8vw;
+  --spacing-xl: 12vw;
+
+  /* --- Typography Base --- */
+  --font-family-main: 'TWK Lausanne', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  
+  /* Mobile Scale (< 601px) */
+  --font-s-h0: 25.6vw;
+  --font-s-h1: 16vw;
+  --font-s-h2: 7.73vw;
+  --font-s-h3: 6.4vw;
+  --font-s-h4: 4.8vw;
+  --font-s-p: 4.2vw; /* Slightly adjusted for better mobile readability */
+  --font-s-label: 3.73vw;
+  
+  /* Line Heights & Letter Spacing */
+  --lh-tight: 1.05;
+  --lh-standard: 1.25;
+  --lh-loose: 1.5;
+  --ls-tight: -0.02em;
+  --ls-standard: -0.01em;
+}
+
+/* Desktop Scale (≥ 601px) */
+@media (min-width: 601px) {
+  :root {
+    --font-s-h0: 17.36vw;
+    --font-s-h1: 10vw;
+    --font-s-h2: 3.61vw;
+    --font-s-h3: 2.22vw;
+    --font-s-h4: 1.67vw;
+    --font-s-p: 1.11vw;
+    --font-s-label: 0.97vw;
+  }
+}
+
+/* ==========================================================================
+   2. RESET & BASE STYLES
+   ========================================================================== */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-family-main);
+  font-weight: 400;
+  font-size: var(--font-s-p);
+  line-height: var(--lh-standard);
+  letter-spacing: var(--ls-standard);
+  background-color: var(--color-off-white);
+  color: var(--color-dark-grey);
+  overflow-x: hidden;
+}
+
+img, video {
+  max-width: 100%;
+  display: block;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* ==========================================================================
+   3. LAYOUT & CONTAINER ARCHITECTURE
+   ========================================================================== */
+
+.container {
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 var(--spacing-md);
+}
+
+.section {
+  padding: var(--spacing-xl) 0;
+  position: relative;
+}
+
+.flex-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-md);
+}
+
+.grid-2 {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.grid-3 {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-md);
+}
+
+.grid-3 > * {
+  flex: 1 1 100%;
+}
+
+@media (min-width: 601px) {
+  .grid-2 {
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
+  }
+  
+  .grid-2 > * {
+    flex: 1;
+  }
+
+  .grid-3 > * {
+    flex: 1 1 calc(33.33% - 1.33vw);
+  }
+}
+
+/* ==========================================================================
+   4. TYPOGRAPHY
+   ========================================================================== */
+
+h1, h2, h3, h4 {
+  font-weight: 500;
+  line-height: var(--lh-tight);
+  letter-spacing: var(--ls-tight);
+}
+
+.h0, .hero-title { font-size: var(--font-s-h0); line-height: 0.9; }
+.h1 { font-size: var(--font-s-h1); }
+.h2 { font-size: var(--font-s-h2); }
+.h3 { font-size: var(--font-s-h3); }
+.h4 { font-size: var(--font-s-h4); text-transform: uppercase; letter-spacing: 0.05em; font-weight: 400; }
+
+p {
+  font-size: var(--font-s-p);
+  line-height: var(--lh-loose);
+  margin-bottom: 1.5em;
+  max-width: 65ch; /* Optimal reading width */
+}
+
+.label {
+  font-size: var(--font-s-label);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: 400;
+  color: var(--color-dark-grey-06);
+}
+
+.light-weight { font-weight: 300; }
+
+/* ==========================================================================
+   5. SECTION THEMES (Two-Tone System)
+   ========================================================================== */
+
+.light {
+  background-color: var(--color-off-white);
+  color: var(--color-dark-grey);
+}
+
+.dark {
+  background-color: var(--color-dark-grey);
+  color: var(--color-white);
+}
+
+.dark .label { color: var(--color-white-06); }
+.dark p { color: var(--color-white-08); }
+
+.accent-text { color: var(--color-sand); }
+
+/* ==========================================================================
+   6. HERO & PARALLAX STRUCTURE
+   ========================================================================== */
+
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: flex-end; /* Exo Ape often anchors hero text to bottom or center */
+  padding-bottom: var(--spacing-lg);
+  overflow: hidden;
+}
+
+.hero .background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 120%; /* Extra height for parallax movement */
+  z-index: -1;
+  will-change: transform;
+}
+
+.hero .background img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, transparent 40%, rgba(13, 14, 19, 0.6) 100%);
+  z-index: 0;
+}
+
+.hero .container {
+  position: relative;
+  z-index: 2;
+  color: var(--color-white);
+}
+
+/* ==========================================================================
+   7. SIGNATURE TITLE MASK ANIMATIONS
+   ========================================================================== */
+
+.title {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: var(--spacing-md);
+}
+
+.title-mask {
+  overflow: hidden;
+  display: block;
+  /* Height matches line-height to prevent clipping descenders */
+  height: calc(var(--font-s-h1) * 1.05); 
+  position: relative;
+}
+
+.hero-title .title-mask {
+  height: calc(var(--font-s-h0) * 0.95);
+}
+
+.title-line {
+  display: block;
+  will-change: transform;
+  transform: translateY(110%); /* Hidden below mask initially */
+  transition: transform 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* Triggered state via JS */
+.title-line.is-visible {
+  transform: translateY(0);
+}
+
+/* Stagger delays applied via inline styles or CSS nth-child */
+.title-mask:nth-child(2) .title-line { transition-delay: 0.15s; }
+.title-mask:nth-child(3) .title-line { transition-delay: 0.3s; }
+.title-mask:nth-child(4) .title-line { transition-delay: 0.45s; }
+
+/* ==========================================================================
+   8. SCROLL-DRIVEN ANIMATIONS (Intersection Observer Hooks)
+   ========================================================================== */
+
+.animate {
+  opacity: 0;
+  will-change: transform, opacity;
+  transition: opacity 0.8s ease-out, transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.animate[data-animate="slideUp"] { transform: translateY(60px); }
+.animate[data-animate="slideDown"] { transform: translateY(-60px); }
+.animate[data-animate="slideLeft"] { transform: translateX(60px); }
+.animate[data-animate="slideRight"] { transform: translateX(-60px); }
+.animate[data-animate="scaleIn"] { transform: scale(0.92); }
+.animate[data-animate="fadeIn"] { transform: none; }
+
+/* Triggered state */
+.animate.animate-in {
+  opacity: 1;
+  transform: translate(0, 0) scale(1);
+}
+
+/* Staggered Children */
+.stagger-children .animate:nth-child(1) { transition-delay: 0.1s; }
+.stagger-children .animate:nth-child(2) { transition-delay: 0.2s; }
+.stagger-children .animate:nth-child(3) { transition-delay: 0.3s; }
+.stagger-children .animate:nth-child(4) { transition-delay: 0.4s; }
+
+/* ==========================================================================
+   9. MARQUEE (Infinite Scroll)
+   ========================================================================== */
+
+.marquee {
+  overflow: hidden;
+  white-space: nowrap;
+  padding: var(--spacing-md) 0;
+  border-top: 1px solid var(--color-dark-grey-02);
+  border-bottom: 1px solid var(--color-dark-grey-02);
+}
+
+.dark .marquee {
+  border-color: var(--color-white-02);
+}
+
+.marquee-track {
+  display: inline-flex;
+  width: 200%; /* Must be 200% for seamless loop */
+  animation: marquee-scroll 25s linear infinite;
+  will-change: transform;
+}
+
+.marquee-line {
+  display: inline-flex;
+  align-items: center;
+  gap: 4vw;
+  padding-right: 4vw;
+  font-size: var(--font-s-h2);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+}
+
+.marquee-line svg {
+  width: 2vw;
+  height: 2vw;
+  fill: currentColor;
+  flex-shrink: 0;
+}
+
+@keyframes marquee-scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* ==========================================================================
+   10. INTERACTIVE ELEMENTS & HOVER STATES
+   ========================================================================== */
+
+/* Premium Link / Button Hover */
+.exo-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 1.5vw;
+  font-size: var(--font-s-p);
+  font-weight: 500;
+  position: relative;
+  padding: 1vw 0;
+}
+
+.exo-link .circle {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 1.5px solid currentColor;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: border-color 0.4s ease;
+}
+
+.exo-link .circle-fill {
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: var(--color-sand);
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.exo-link .link-text {
+  position: relative;
+}
+
+.exo-link .link-text::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 1.5px;
+  background: currentColor;
+  transition: width 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.exo-link:hover .circle-fill {
+  width: 100%;
+  height: 100%;
+}
+
+.exo-link:hover .link-text::after {
+  width: 100%;
+}
+
+/* ==========================================================================
+   11. SPECIFIC CONTENT BLOCKS (Based on index.html structure)
+   ========================================================================== */
+
+/* "How We Work" Numbered Principles */
+.principle-item {
+  display: flex;
+  gap: var(--spacing-md);
+  padding: var(--spacing-md) 0;
+  border-top: 1px solid var(--color-dark-grey-02);
+}
+
+.dark .principle-item { border-color: var(--color-white-02); }
+
+.principle-number {
+  font-size: var(--font-s-h3);
+  font-weight: 300;
+  color: var(--color-sand);
+  line-height: 1;
+  flex-shrink: 0;
+  width: 15%;
+}
+
+.principle-content {
+  flex: 1;
+}
+
+/* "Recognition" Awards List */
+.awards-list {
+  list-style: none;
+}
+
+.award-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 2vw 0;
+  border-bottom: 1px solid var(--color-dark-grey-02);
+  transition: padding-left 0.4s ease;
+}
+
+.dark .award-item { border-color: var(--color-white-02); }
+
+.award-item:hover {
+  padding-left: 2vw;
+}
+
+.award-project {
+  font-size: var(--font-s-h3);
+  font-weight: 500;
+}
+
+.award-category {
+  font-size: var(--font-s-p);
+  color: var(--color-dark-grey-06);
+}
+
+.dark .award-category { color: var(--color-white-06); }
+
+/* Image Collage / Mood Grid */
+.mood-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--spacing-sm);
+}
+
+@media (min-width: 601px) {
+  .mood-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--spacing-md);
+  }
+}
+
+.mood-img {
+  overflow: hidden;
+  border-radius: 4px;
+  aspect-ratio: 3/4;
+}
+
+.mood-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.mood-img:hover img {
+  transform: scale(1.05);
+}
+
+/* ==========================================================================
+   12. PERFORMANCE & ACCESSIBILITY
+   ========================================================================== */
+
+/* GPU Acceleration Hints */
+.parallax-bg,
+.parallax-content,
+.title-line,
+.animate,
+.marquee-track {
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+/* Reduced Motion Preference */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  
+  .title-line {
+    transform: translateY(0) !important;
+  }
+  
+  .animate {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
