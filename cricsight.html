@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CricSight Powerplay — Stitchmark | Space</title>
+<meta name="description" content="Over-by-over cricket intelligence for Bangladesh Premier League. Pressure index, win probability, multi-model orchestration.">
+<link rel="stylesheet" href="style.css">
+<style>
+  :root { --accent: #1A4A2A; --accent2: #2A6A3A; }
+
+  /* HERO — full viewport, centered, generous */
+  .cs-hero {
+    min-height: 100svh;
+    display: grid;
+    place-items: center;
+    padding: clamp(8rem,16vw,14rem) var(--pad) clamp(5rem,10vw,9rem);
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Large BG number */
+  .cs-bg-num {
+    position: absolute;
+    bottom: -0.15em;
+    right: var(--pad);
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: clamp(12rem, 30vw, 28rem);
+    font-weight: 300;
+    color: var(--cream3);
+    line-height: 1;
+    letter-spacing: -0.06em;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  .cs-hero-inner { position: relative; max-width: 900px; width: 100%; }
+
+  /* STAT ROW */
+  .cs-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    border: 1px solid var(--rule);
+    margin-top: 5rem;
+  }
+  .cs-stat {
+    padding: 2.5rem;
+    border-right: 1px solid var(--rule);
+  }
+  .cs-stat:last-child { border-right: none; }
+  .cs-stat-val {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 300;
+    line-height: 1;
+    letter-spacing: -0.03em;
+    margin-bottom: 0.5rem;
+  }
+  .cs-stat-lbl {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink4);
+  }
+
+  /* LAUNCH BUTTON — big, editorial */
+  .cs-launch {
+    display: inline-flex;
+    align-items: center;
+    gap: 1.5rem;
+    margin-top: 5rem;
+    padding: 2.25rem 3.5rem;
+    background: var(--ink);
+    color: var(--cream);
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: clamp(1.4rem, 3vw, 2.25rem);
+    font-weight: 300;
+    font-style: italic;
+    letter-spacing: -0.01em;
+    transition: all 0.35s cubic-bezier(.16,1,.3,1);
+    text-decoration: none;
+    position: relative;
+    overflow: hidden;
+  }
+  .cs-launch::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--accent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.45s cubic-bezier(.16,1,.3,1);
+  }
+  .cs-launch:hover::before { transform: scaleX(1); }
+  .cs-launch span, .cs-launch svg { position: relative; z-index: 1; }
+  .cs-launch:hover { gap: 2.5rem; transform: none; }
+
+  .cs-arrow {
+    width: 2em; height: 1px;
+    background: var(--cream);
+    position: relative;
+    transition: width 0.35s cubic-bezier(.16,1,.3,1);
+  }
+  .cs-arrow::after {
+    content: '';
+    position: absolute;
+    right: 0; top: 50%;
+    width: 0.5em; height: 0.5em;
+    border-right: 1px solid var(--cream);
+    border-top: 1px solid var(--cream);
+    transform: translateY(-50%) rotate(45deg);
+  }
+  .cs-launch:hover .cs-arrow { width: 3em; }
+
+  /* TECH TAGS */
+  .tag-cloud {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 3rem;
+  }
+  .cs-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 0.5em 1em;
+    border: 1px solid var(--rule);
+    color: var(--ink3);
+  }
+  .cs-tag-accent { border-color: rgba(26,74,42,0.3); color: var(--accent); }
+
+  /* FEATURE ROWS */
+  .feature-row {
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    gap: 2.5rem;
+    padding: 2.5rem 0;
+    border-bottom: 1px solid var(--rule2);
+    align-items: start;
+  }
+  .feature-row:first-child { border-top: 1px solid var(--rule); }
+  .feature-icon {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 2.5rem;
+    font-weight: 300;
+    color: var(--cream3);
+    line-height: 1;
+  }
+  .feature-title {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.5rem;
+  }
+  .feature-body { font-size: 0.95rem; color: var(--ink2); line-height: 1.75; }
+
+  @media (max-width: 700px) {
+    .cs-stats { grid-template-columns: 1fr 1fr; }
+    .cs-stat:nth-child(2) { border-right: none; }
+    .cs-stat:nth-child(1), .cs-stat:nth-child(2) { border-bottom: 1px solid var(--rule); }
+    .feature-row { grid-template-columns: 1fr; gap: 0.75rem; }
+    .feature-icon { display: none; }
+    .cs-bg-num { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-brand" href="index.html">Stitchmark <span>|</span> Space</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="docrag.html">DocRAG</a></li>
+    <li><a href="erudite.html">Erudite</a></li>
+    <li><a href="floodguard.html">FloodGuard</a></li>
+    <li><a href="lab.html">Lab</a></li>
+  </ul>
+</nav>
+
+<!-- ═══════════════════ HERO ═══════════════════ -->
+<section class="cs-hero" style="background:white;">
+  <div class="cs-hero-inner">
+    <div class="cs-bg-num">03</div>
+
+    <p class="breadcrumb reveal"><a href="index.html">Stitchmark | Space</a> <span>→</span> CricSight Powerplay</p>
+
+    <div class="eyebrow reveal">
+      <span class="eyebrow-text">Case File · 003 · Sports Analytics · Live</span>
+    </div>
+
+    <h1 class="reveal" style="max-width:800px; margin-bottom:2rem; line-height:0.95;">
+      Cricket.<br>
+      <em>Seen differently.</em>
+    </h1>
+
+    <p class="reveal delay-1" style="max-width:540px; font-size:clamp(1rem,1.5vw,1.15rem); color:var(--ink2); line-height:1.85;">
+      Over-by-over pressure intelligence for Bangladesh Premier League.
+      Not box scores. Not averages. The underlying physics of momentum —
+      rendered as an editorial experience worthy of the game.
+    </p>
+
+    <div class="cs-stats reveal delay-2">
+      <div class="cs-stat">
+        <div class="cs-stat-val">3</div>
+        <div class="cs-stat-lbl">Gemini models orchestrated per match query</div>
+      </div>
+      <div class="cs-stat">
+        <div class="cs-stat-val">BPL</div>
+        <div class="cs-stat-lbl">Bangladesh Premier League · primary dataset</div>
+      </div>
+      <div class="cs-stat">
+        <div class="cs-stat-val">Live</div>
+        <div class="cs-stat-lbl">Deployed at cricsight.stitchmark.space</div>
+      </div>
+    </div>
+
+    <a href="https://cricsight.stitchmark.space" target="_blank" rel="noopener noreferrer" class="cs-launch reveal delay-3">
+      <span>Open CricSight Powerplay</span>
+      <div class="cs-arrow"></div>
+    </a>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <span class="marquee-item">Over-by-over pressure index</span>
+    <span class="marquee-dot">◆</span>
+    <span class="marquee-item">Win probability curves</span>
+    <span class="marquee-dot">◆</span>
+    <span class="marquee-item">LangGraph multi-model orchestration</span>
+    <span class="marquee-dot">◆</span>
+    <span class="marquee-item">Gemini 2.5 Pro analysis</span>
+    <span class="marquee-dot">◆</span>
+    <span class="marquee-item">Player performance embeddings</span>
+    <span class="marquee-dot">◆</span>
+    <span class="marquee-item">Cricsheet JSON dataset</span>
+    <span class="marquee-dot">◆</span>
+    <span class="marquee-item">Editorial linen aesthetic</span>
+    <span class="marquee-dot">◆</span>
+    <span class="marquee-item">Over-by-over pressure index</span>
+    <span class="marquee-dot">◆</span>
+    <span class="marquee-item">Win probability curves</span>
+    <span class="marquee-dot">◆</span>
+    <span class="marquee-item">LangGraph multi-model orchestration</span>
+    <span class="marquee-dot">◆</span>
+    <span class="marquee-item">Gemini 2.5 Pro analysis</span>
+    <span class="marquee-dot">◆</span>
+    <span class="marquee-item">Player performance embeddings</span>
+    <span class="marquee-dot">◆</span>
+    <span class="marquee-item">Cricsheet JSON dataset</span>
+    <span class="marquee-dot">◆</span>
+  </div>
+</div>
+
+<!-- ═══════════════════ WHAT IT DOES ═══════════════════ -->
+<section>
+  <div class="wrap">
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:clamp(3rem,6vw,8rem); align-items:start;">
+
+      <div class="reveal">
+        <div class="eyebrow"><span class="eyebrow-text">§ 01 — Intelligence Layer</span></div>
+        <h2>Beyond the scoreboard.<br><em>Into the pressure.</em></h2>
+        <p style="margin-top:2rem;">
+          Standard cricket analytics show you what happened.
+          CricSight Powerplay shows you <em>why it felt inevitable</em> —
+          the mounting pressure of dot balls, the momentum shift after a
+          dropped catch, the over where the match was actually lost.
+        </p>
+        <p style="margin-top:1.5rem; color:var(--ink3);">
+          Built for Bangladesh Premier League data because BPL is exactly
+          where this intelligence matters most and is least available.
+          T20 cricket is a pressure game. The analysis should reflect that.
+        </p>
+      </div>
+
+      <div class="reveal delay-1" style="padding-top:1rem;">
+        <div class="feature-row">
+          <span class="feature-icon">∫</span>
+          <div>
+            <div class="feature-title">Pressure Index</div>
+            <p class="feature-body">Over-by-over cumulative pressure calculated from required run rate delta, wicket context, and batting position. The number that explains the scorecard.</p>
+          </div>
+        </div>
+        <div class="feature-row">
+          <span class="feature-icon">P</span>
+          <div>
+            <div class="feature-title">Win Probability Curves</div>
+            <p class="feature-body">Ball-by-ball win probability updated continuously. Shows not just who won, but the exact moment the match tipped — and by how much.</p>
+          </div>
+        </div>
+        <div class="feature-row">
+          <span class="feature-icon">∑</span>
+          <div>
+            <div class="feature-title">Player Performance Embeddings</div>
+            <p class="feature-body">Vector representations of player performance across context-matched situations. Who performs under pressure. Who fades.</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ DARK BANNER ═══════════════════ -->
+<div class="banner">
+  <div class="wrap">
+    <div style="max-width:780px;">
+      <p class="label" style="color:rgba(245,242,236,0.3); margin-bottom:2rem;">The orchestration</p>
+      <h2 class="reveal" style="font-size:clamp(2rem,4.5vw,3.75rem); margin-bottom:2.5rem;">
+        Three models.<br>
+        One match query.<br>
+        <em>Each doing the job it's best at.</em>
+      </h2>
+      <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:2rem;" class="reveal delay-1">
+        <div style="border-top:1px solid rgba(245,242,236,0.12); padding-top:1.5rem;">
+          <div class="label" style="color:rgba(245,242,236,0.4); margin-bottom:0.75rem;">Gemini 2.5 Pro</div>
+          <p style="color:rgba(245,242,236,0.7); font-size:0.9rem; line-height:1.7;">Deep match analysis. The long-form reasoning. Tournament context and tactical narrative.</p>
+        </div>
+        <div style="border-top:1px solid rgba(245,242,236,0.12); padding-top:1.5rem;">
+          <div class="label" style="color:rgba(245,242,236,0.4); margin-bottom:0.75rem;">Gemini Flash</div>
+          <p style="color:rgba(245,242,236,0.7); font-size:0.9rem; line-height:1.7;">Over-by-over narration. Fast, contextual, structured. The live commentary layer.</p>
+        </div>
+        <div style="border-top:1px solid rgba(245,242,236,0.12); padding-top:1.5rem;">
+          <div class="label" style="color:rgba(245,242,236,0.4); margin-bottom:0.75rem;">LangGraph</div>
+          <p style="color:rgba(245,242,236,0.7); font-size:0.9rem; line-height:1.7;">Routes queries between models based on complexity and context. The orchestration layer that makes the system coherent.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════ TECH STACK ═══════════════════ -->
+<section style="background:white;">
+  <div class="wrap">
+    <div class="eyebrow reveal"><span class="eyebrow-text">§ 02 — Technical Stack</span></div>
+    <h2 class="reveal" style="margin-bottom:4rem;">What's under<br><em>the scoreboard.</em></h2>
+
+    <div>
+      <div class="stack-row reveal"><span class="stack-name">LangGraph</span><p class="stack-desc">Multi-model orchestration routing queries between Gemini 2.5 Pro for deep analysis, Flash for narration, and Claude 3.5 Sonnet for editorial card writing. Task routing based on query complexity and context depth required.</p></div>
+      <div class="stack-row reveal"><span class="stack-name">Gemini 2.5 Pro</span><p class="stack-desc">Deep match analysis, tournament context, tactical narrative generation. The reasoning model for questions that require thinking about the whole game, not just the over.</p></div>
+      <div class="stack-row reveal"><span class="stack-name">Cricsheet JSON</span><p class="stack-desc">Ball-by-ball match data for Bangladesh Premier League. Every delivery, every wicket, every over — parsed into pressure and probability calculations.</p></div>
+      <div class="stack-row reveal"><span class="stack-name">Next.js + Framer Motion</span><p class="stack-desc">Editorial, linen-palette aesthetic. Slot-machine headline animations, animated architecture dropdowns, embedded data visualizations. Bangladesh green as the sole accent color.</p></div>
+      <div class="stack-row reveal"><span class="stack-name">BigQuery</span><p class="stack-desc">Match data warehouse for historical BPL analysis. Aggregated statistics, player performance vectors, tournament-level context queries.</p></div>
+    </div>
+
+    <div class="tag-cloud reveal delay-1" style="margin-top:3rem;">
+      <span class="cs-tag cs-tag-accent">LangGraph</span>
+      <span class="cs-tag cs-tag-accent">Multi-model Orchestration</span>
+      <span class="cs-tag">Gemini 2.5 Pro</span>
+      <span class="cs-tag">Gemini Flash</span>
+      <span class="cs-tag">Cricsheet JSON</span>
+      <span class="cs-tag">Pressure Index</span>
+      <span class="cs-tag">Win Probability</span>
+      <span class="cs-tag">Next.js</span>
+      <span class="cs-tag">Framer Motion</span>
+      <span class="cs-tag">BigQuery</span>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ SECOND CTA ═══════════════════ -->
+<section>
+  <div class="wrap">
+    <div style="display:grid; grid-template-columns:1fr auto; gap:4rem; align-items:center; flex-wrap:wrap;">
+      <div class="reveal">
+        <h2 style="margin-bottom:1.5rem;"><em>The app is live.</em><br>The data is Bangladesh.</h2>
+        <p style="max-width:480px;">
+          CricSight Powerplay is deployed and running on BPL match data.
+          The analysis works best when you know the game —
+          and want to understand it at a level the scorecard doesn't reach.
+        </p>
+      </div>
+      <div class="reveal delay-1">
+        <a href="https://cricsight.stitchmark.space" target="_blank" rel="noopener noreferrer" class="btn btn-dark" style="white-space:nowrap; padding:1.25em 2.5em; font-size:0.8rem;">
+          Open CricSight →
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="footer-inner">
+      <div class="footer-brand">CricSight Powerplay · Live<br>cricsight.stitchmark.space</div>
+      <div class="footer-links">
+        <a href="index.html">Home</a>
+        <a href="docrag.html">DocRAG</a>
+        <a href="erudite.html">Erudite</a>
+        <a href="floodguard.html">FloodGuard</a>
+        <a href="lab.html">Lab</a>
+      </div>
+      <div class="footer-brand" style="text-align:right;">Stitchmark | Space<br>Built on Google Cloud · © 2026</div>
+    </div>
+  </div>
+</footer>
+
+<script src="main.js"></script>
+</body>
+</html>
