@@ -1,328 +1,564 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>DocRAG-Legal · Leveling the Playing Field</title>
-  <link rel="stylesheet" href="styles.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DocRAG-Legal — Stitchmark | Space</title>
+<meta name="description" content="Contract risk intelligence with adversarial self-auditing. Not a chatbot. An evidentiary instrument built for Bangladesh's commercial and legal environment.">
+<link rel="stylesheet" href="style.css">
+<style>
+  :root { --accent: #1A2D4A; --accent2: #2D4A70; }
+
+  /* HERO */
+  .docket-header {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+    border: 1px solid var(--rule);
+    display: inline-block;
+    padding: 0.6em 1.25em;
+    margin-bottom: 3rem;
+  }
+
+  /* STAT STRIP */
+  .stat-strip {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    border: 1px solid var(--rule);
+    margin-top: 5rem;
+  }
+  .stat-strip-cell {
+    padding: 2.5rem 3rem;
+    border-right: 1px solid var(--rule);
+  }
+  .stat-strip-cell:last-child { border-right: none; }
+  .stat-val {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 300;
+    line-height: 1;
+    letter-spacing: -0.03em;
+    margin-bottom: 0.5rem;
+  }
+  .stat-lbl { font-family: 'DM Mono', monospace; font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink4); }
+  @media (max-width: 600px) { .stat-strip { grid-template-columns: 1fr; } .stat-strip-cell { border-right: none; border-bottom: 1px solid var(--rule); } }
+
+  /* COMPARE */
+  .compare-section { background: white; padding: var(--section) 0; }
+  .compare-outer { border: 1px solid var(--rule); }
+  .compare-header-bar {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border-bottom: 1px solid var(--rule);
+  }
+  .compare-col-head {
+    padding: 1.75rem 3rem;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+  .compare-col-head.bad { color: var(--ink4); border-right: 1px solid var(--rule); }
+  .compare-col-head.good { color: var(--accent); }
+  .compare-body-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border-bottom: 1px solid var(--rule2);
+  }
+  .compare-body-row:last-child { border-bottom: none; }
+  .compare-cell {
+    padding: 1.25rem 3rem;
+    font-size: 0.93rem;
+    color: var(--ink3);
+    line-height: 1.6;
+  }
+  .compare-cell.good { color: var(--ink); border-left: 1px solid var(--rule); }
+  @media (max-width: 700px) {
+    .compare-header-bar, .compare-body-row { grid-template-columns: 1fr; }
+    .compare-col-head.bad, .compare-cell.good { border-right: none; border-left: none; border-bottom: 1px solid var(--rule2); }
+  }
+
+  /* ENDPOINT LIST */
+  .endpoint {
+    display: grid;
+    grid-template-columns: 160px 1fr;
+    gap: 3rem;
+    padding: 2rem 0;
+    border-bottom: 1px solid var(--rule2);
+    align-items: baseline;
+  }
+  .endpoint:first-child { border-top: 1px solid var(--rule); }
+  .endpoint-method {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.8rem;
+    letter-spacing: 0.05em;
+    color: var(--accent);
+  }
+  .endpoint-desc { font-size: 0.95rem; color: var(--ink2); line-height: 1.65; }
+  @media (max-width: 700px) { .endpoint { grid-template-columns: 1fr; gap: 0.5rem; } }
+
+  /* CHAIN ILLUSTRATION */
+  .chain-row {
+    display: grid;
+    grid-template-columns: 80px 1fr 1fr;
+    gap: 2rem;
+    padding: 1.5rem 0;
+    border-bottom: 1px solid var(--rule2);
+    align-items: start;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--ink3);
+  }
+  .chain-q { color: var(--accent); font-size: 0.8rem; }
+  .chain-formula { font-size: 0.65rem; color: var(--ink4); line-height: 1.6; }
+  .chain-hash { color: var(--ink2); word-break: break-all; font-size: 0.65rem; }
+</style>
 </head>
 <body>
 
-  <!-- HERO SECTION -->
-  <header class="hero dark">
-    <div class="container">
-      <div class="label animate" data-animate="fadeIn">CASE FILE · 001 · DOCRAG-LEGAL V2</div>
-      <h1 class="title hero-title">
-        <div class="title-mask">
-          <div class="title-line">Leveling</div>
-        </div>
-        <div class="title-mask">
-          <div class="title-line">the Playing</div>
-        </div>
-        <div class="title-mask">
-          <div class="title-line">Field</div>
-        </div>
-      </h1>
-      <p class="animate" data-animate="slideUp" style="margin-top: 2vw; font-size: var(--font-s-h4); max-width: 50ch;">
-        A contract risk intelligence system with adversarial self‑auditing. Not a ChatPDF. Not a legal chatbot. A system that challenges its own answers at runtime.
-      </p>
-    </div>
-  </header>
+<nav>
+  <a class="nav-brand" href="index.html">Stitchmark <span>|</span> Space</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="erudite.html">Erudite</a></li>
+    <li><a href="cricsight.html">CricSight</a></li>
+    <li><a href="floodguard.html">FloodGuard</a></li>
+    <li><a href="lab.html">Lab</a></li>
+  </ul>
+</nav>
 
-  <!-- SECTION 01: THE PROBLEM -->
-  <section class="section light">
-    <div class="container">
-      <div class="grid-2">
-        <div>
-          <div class="label animate" data-animate="fadeIn">§ 01 — THE PROBLEM</div>
-          <h2 class="h1 title" style="margin-top: 2vw;">
-            <div class="title-mask">
-              <div class="title-line">Information</div>
-            </div>
-            <div class="title-mask">
-              <div class="title-line">asymmetry is</div>
-            </div>
-            <div class="title-mask">
-              <div class="title-line">the real tax</div>
-            </div>
-          </h2>
-        </div>
-        <div class="animate" data-animate="slideUp">
-          <p>
-            Bangladesh's commercial environment runs on three things: paper, precedent, and who you know. Statutes are published as degraded PDFs on government portals. Contracts are drafted from inherited templates nobody re-reads. Regulatory circulars arrive weekly and are interpreted by the loudest voice in the room.
-          </p>
-          <p>
-            The consequence is not just inefficiency. It is structural disadvantage. A small garment exporter in Gazipur negotiating an LC with a foreign buyer has no way to audit the indemnity clause against prevailing case law.
-          </p>
-          <div class="flex-row" style="margin-top: 3vw;">
-            <div>
-              <div class="h2 light-weight">170M</div>
-              <div class="label">People under these jurisdictions</div>
-            </div>
-            <div>
-              <div class="h2 light-weight">3</div>
-              <div class="label">Regulatory languages</div>
-            </div>
-            <div>
-              <div class="h2 light-weight">$0</div>
-              <div class="label">Cloud spend to production</div>
-            </div>
-          </div>
-        </div>
+<!-- ═══════════════════════════ HERO ═══════════════════════════ -->
+<section class="page-hero" style="background:white;">
+  <div class="wrap">
+    <p class="breadcrumb"><a href="index.html">Stitchmark | Space</a> <span>→</span> DocRAG-Legal</p>
+    <div class="reveal">
+      <div class="docket-header">Case File · 001 · DocRAG-Legal V2 &nbsp;·&nbsp; Deployed · us-central1</div>
+    </div>
+    <h1 class="reveal" style="max-width:900px; margin-bottom:2.5rem;">
+      The contract risk<br>intelligence system<br><em>that argues with itself.</em>
+    </h1>
+    <p class="reveal delay-1" style="max-width:560px; font-size:clamp(1rem,1.5vw,1.15rem); color:var(--ink2); line-height:1.85;">
+      Not a ChatPDF. Not a legal chatbot. A system that challenges its own answers
+      at runtime and exposes the challenge to the user — so a junior associate in
+      Dhaka has the same evidentiary footing as a senior partner in a global firm.
+    </p>
+
+    <div class="stat-strip reveal delay-2">
+      <div class="stat-strip-cell">
+        <div class="stat-val">&gt;0.85</div>
+        <div class="stat-lbl">Faithfulness threshold</div>
       </div>
-    </div>
-  </section>
-
-  <!-- SECTION 02: WHAT IT IS -->
-  <section class="section dark">
-    <div class="container">
-      <div class="label animate" data-animate="fadeIn">§ 02 — WHAT IT IS</div>
-      <h2 class="h1 title" style="margin-top: 2vw;">
-        <div class="title-mask">
-          <div class="title-line">The anti-</div>
-        </div>
-        <div class="title-mask">
-          <div class="title-line">ChatPDF</div>
-        </div>
-      </h2>
-      
-      <div class="grid-2" style="margin-top: 4vw;">
-        <div class="animate" data-animate="slideUp">
-          <div class="h4" style="margin-bottom: 2vw;">✗ STANDARD RAG</div>
-          <ul style="list-style: none; padding: 0;">
-            <li style="padding: 1vw 0; border-bottom: 1px solid var(--color-white-02);">Retrieves chunks, synthesises, returns answer</li>
-            <li style="padding: 1vw 0; border-bottom: 1px solid var(--color-white-02);">Hallucinations hidden from user</li>
-            <li style="padding: 1vw 0; border-bottom: 1px solid var(--color-white-02);">No way to verify synthesis was faithful</li>
-            <li style="padding: 1vw 0; border-bottom: 1px solid var(--color-white-02);">Citations, if present, are decorative</li>
-            <li style="padding: 1vw 0;">A session is a list of questions with no audit trail</li>
-          </ul>
-        </div>
-        
-        <div class="animate" data-animate="slideUp">
-          <div class="h4 accent-text" style="margin-bottom: 2vw;">✓ DOCRAG-LEGAL</div>
-          <ul style="list-style: none; padding: 0;">
-            <li style="padding: 1vw 0; border-bottom: 1px solid var(--color-white-02);">Retrieves, synthesises, then a second model attacks the answer</li>
-            <li style="padding: 1vw 0; border-bottom: 1px solid var(--color-white-02);">The adversarial challenge is shown to the user</li>
-            <li style="padding: 1vw 0; border-bottom: 1px solid var(--color-white-02);">Faithfulness score auto-flags anything under 0.85</li>
-            <li style="padding: 1vw 0; border-bottom: 1px solid var(--color-white-02);">Every citation verified against source chunk</li>
-            <li style="padding: 1vw 0;">Each interaction SHA-256 chained to previous</li>
-          </ul>
-        </div>
+      <div class="stat-strip-cell">
+        <div class="stat-val">100%</div>
+        <div class="stat-lbl">Citation accuracy required</div>
       </div>
-    </div>
-  </section>
-
-  <!-- MARQUEE -->
-  <div class="marquee dark">
-    <div class="marquee-track">
-      <div class="marquee-line">
-        Every answer challenges itself
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-          <circle cx="12" cy="12" r="4"/>
-        </svg>
-        Every session is tamper-evident
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-          <circle cx="12" cy="12" r="4"/>
-        </svg>
-        Every answer challenges itself
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-          <circle cx="12" cy="12" r="4"/>
-        </svg>
-        Every session is tamper-evident
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-          <circle cx="12" cy="12" r="4"/>
-        </svg>
+      <div class="stat-strip-cell">
+        <div class="stat-val">SHA-256</div>
+        <div class="stat-lbl">Session provenance chaining</div>
       </div>
     </div>
   </div>
+</section>
 
-  <!-- SECTION 03: ARCHITECTURE -->
-  <section class="section light">
-    <div class="container">
-      <div class="label animate" data-animate="fadeIn">§ 03 — ARCHITECTURE</div>
-      <h2 class="h1 title" style="margin-top: 2vw;">
-        <div class="title-mask">
-          <div class="title-line">The domain-</div>
+<!-- ═══════════════════════════ MARQUEE ═══════════════════════════ -->
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <span class="marquee-item">Adversarial self-auditing</span>
+    <span class="marquee-dot">◆</span>
+    <span class="marquee-item">Faithfulness scoring</span>
+    <span class="marquee-dot">◆</span>
+    <span class="marquee-item">SHA-256 provenance chaining</span>
+    <span class="marquee-dot">◆</span>
+    <span class="marquee-item">Clause risk heatmapping</span>
+    <span class="marquee-dot">◆</span>
+    <span class="marquee-item">Statute-backed redlines</span>
+    <span class="marquee-dot">◆</span>
+    <span class="marquee-item">Gemini-as-judge</span>
+    <span class="marquee-dot">◆</span>
+    <span class="marquee-item">Adversarial self-auditing</span>
+    <span class="marquee-dot">◆</span>
+    <span class="marquee-item">Faithfulness scoring</span>
+    <span class="marquee-dot">◆</span>
+    <span class="marquee-item">SHA-256 provenance chaining</span>
+    <span class="marquee-dot">◆</span>
+    <span class="marquee-item">Clause risk heatmapping</span>
+    <span class="marquee-dot">◆</span>
+    <span class="marquee-item">Statute-backed redlines</span>
+    <span class="marquee-dot">◆</span>
+    <span class="marquee-item">Gemini-as-judge</span>
+    <span class="marquee-dot">◆</span>
+  </div>
+</div>
+
+<!-- ═══════════════════════════ PROBLEM ═══════════════════════════ -->
+<section>
+  <div class="wrap">
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:clamp(3rem,6vw,8rem); align-items:start;">
+      <div class="reveal">
+        <div class="eyebrow"><span class="eyebrow-text">§ 01 — Information Asymmetry</span></div>
+        <h2>Bangladesh's commercial environment runs on paper, precedent,<br><em>and who you know.</em></h2>
+      </div>
+      <div class="reveal delay-1" style="padding-top:1rem;">
+        <p style="margin-bottom:1.5rem;">
+          Statutes are published as degraded PDFs on government portals. Contracts
+          are drafted from inherited templates nobody re-reads. Regulatory circulars —
+          from Bangladesh Bank, the NBR, the RJSC — arrive weekly and are interpreted
+          by the loudest voice in the room, not the most accurate reading of the text.
+        </p>
+        <p style="margin-bottom:1.5rem;">
+          A small garment exporter in Gazipur negotiating an LC with a foreign buyer has
+          no way to audit the indemnity clause against prevailing case law. A startup
+          founder signing a seed term sheet has no way to flag that the liquidation
+          preference is 3× market standard.
+        </p>
+        <p>
+          DocRAG-Legal ingests the statute, reads the clause, cites the source, and —
+          critically — <strong>argues with itself in public</strong> before letting the
+          answer reach the user.
+        </p>
+
+        <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:0; border:1px solid var(--rule); margin-top:3rem;">
+          <div style="padding:1.75rem; border-right:1px solid var(--rule);">
+            <div style="font-family:'Cormorant Garamond',serif; font-size:2.5rem; font-weight:300; line-height:1; margin-bottom:0.4rem;">170M</div>
+            <div class="label">People in jurisdiction</div>
+          </div>
+          <div style="padding:1.75rem; border-right:1px solid var(--rule);">
+            <div style="font-family:'Cormorant Garamond',serif; font-size:2.5rem; font-weight:300; line-height:1; margin-bottom:0.4rem;">3</div>
+            <div class="label">Regulatory languages</div>
+          </div>
+          <div style="padding:1.75rem;">
+            <div style="font-family:'Cormorant Garamond',serif; font-size:2.5rem; font-weight:300; line-height:1; margin-bottom:0.4rem;">$0</div>
+            <div class="label">Cloud spend to deploy</div>
+          </div>
         </div>
-        <div class="title-mask">
-          <div class="title-line">agnostic brain</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════ PULL QUOTE ═══════════════════════════ -->
+<div style="padding:clamp(5rem,9vw,8rem) 0; border-top:1px solid var(--rule); border-bottom:1px solid var(--rule);">
+  <div class="wrap">
+    <p class="pull-quote reveal" style="max-width:980px;">
+      "Not just citation-verified answers — <em>cryptographically chained sessions.</em>
+      Every answer challenges itself. Every session is tamper-evident.
+      Every risk assessment cites the exact statute it violates."
+    </p>
+  </div>
+</div>
+
+<!-- ═══════════════════════════ COMPARE ═══════════════════════════ -->
+<section class="compare-section">
+  <div class="wrap">
+    <div class="eyebrow reveal"><span class="eyebrow-text">§ 02 — Design Philosophy</span></div>
+    <h2 class="reveal" style="margin-bottom:4rem;">Not a chatbot.<br><em>An evidentiary instrument.</em></h2>
+
+    <div class="compare-outer reveal delay-1">
+      <div class="compare-header-bar">
+        <div class="compare-col-head bad">✗ &nbsp;Standard RAG System</div>
+        <div class="compare-col-head good">✓ &nbsp;DocRAG-Legal</div>
+      </div>
+      <div class="compare-body-row"><div class="compare-cell bad">Retrieves chunks, synthesises, returns answer.</div><div class="compare-cell good">Retrieves, synthesises — then a second model attacks the answer.</div></div>
+      <div class="compare-body-row"><div class="compare-cell bad">Hallucinations are hidden from the user.</div><div class="compare-cell good">The adversarial challenge is shown to the user, always.</div></div>
+      <div class="compare-body-row"><div class="compare-cell bad">No way to verify synthesis faithfulness.</div><div class="compare-cell good">Faithfulness score auto-flags anything under 0.85.</div></div>
+      <div class="compare-body-row"><div class="compare-cell bad">Citations, if present, are decorative.</div><div class="compare-cell good">Every citation is verified against the source chunk.</div></div>
+      <div class="compare-body-row"><div class="compare-cell bad">A session is a list of questions with no audit trail.</div><div class="compare-cell good">Each interaction is SHA-256 chained to the previous one.</div></div>
+      <div class="compare-body-row"><div class="compare-cell bad">Unacceptable in legal or compliance contexts.</div><div class="compare-cell good">Designed from day one as a regulated-domain instrument.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════ ARCHITECTURE ═══════════════════════════ -->
+<section>
+  <div class="wrap">
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:clamp(3rem,6vw,8rem); align-items:start;">
+      <div class="reveal">
+        <div class="eyebrow"><span class="eyebrow-text">§ 03 — The Stack</span></div>
+        <h2>One engine.<br>Swappable corpus.<br><em>That is the<br>business model.</em></h2>
+        <p style="margin-top:2rem; color:var(--ink3);">
+          The processing machinery is identical across legal, clinical, cybersecurity,
+          and financial contexts. Only the corpus changes. One engine, many data stores.
+        </p>
+      </div>
+      <div class="reveal delay-1" style="padding-top:1rem;">
+        <pre style="font-size:0.72rem; line-height:1.8;">AGNOSTIC PROCESSING MACHINERY
+────────────────────────────────────────
+Vertex RAG → Discovery Engine Rerank
+              → Gemini Pro Synthesis
+                      ↓
+          Gemini Flash Adversarial Judge
+                      ↓
+      SHA-256 Provenance → Modal Ledger
+────────────────────────────────────────
+            ↑ swappable corpus
+
+MUTABLE DOMAIN CONTEXTS
+────────────────────────────────────────
+Statutes · IT Security · Clinical GCP
+Tax Codes · Banking Circulars
+Import/Export Tariffs · Sharia Law</pre>
+      </div>
+    </div>
+
+    <div style="margin-top:5rem;">
+      <div class="eyebrow reveal"><span class="eyebrow-text">Five endpoints</span></div>
+      <div>
+        <div class="endpoint reveal">
+          <span class="endpoint-method">POST /query</span>
+          <p class="endpoint-desc">RAG retrieval → Gemini Pro synthesis → Flash adversarial judge, inline on every single request. The judge result is visible to the user.</p>
         </div>
+        <div class="endpoint reveal">
+          <span class="endpoint-method">POST /risk</span>
+          <p class="endpoint-desc">Clause heatmap — RED / YELLOW / GREEN — with statute citations for every flag. Not decorative. Legally grounded.</p>
+        </div>
+        <div class="endpoint reveal">
+          <span class="endpoint-method">POST /redline</span>
+          <p class="endpoint-desc">Clause diff + statute-backed rewrite + risk delta calculation. Before and after, with full citation chain.</p>
+        </div>
+        <div class="endpoint reveal">
+          <span class="endpoint-method">POST /ingest</span>
+          <p class="endpoint-desc">PDF upload → Cloud Storage → Vertex AI RAG async import with job tracking. Any domain corpus in minutes.</p>
+        </div>
+        <div class="endpoint reveal">
+          <span class="endpoint-method">GET /eval</span>
+          <p class="endpoint-desc">Audit dashboard: faithfulness verdicts, adversarial challenges, session registry, provenance hash ledger.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════ DARK BANNER ═══════════════════════════ -->
+<div class="banner">
+  <div class="wrap">
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:clamp(3rem,6vw,8rem); align-items:center;">
+      <h2 class="reveal" style="font-size:clamp(2rem,4.5vw,3.75rem);">
+        The adversarial judge is a<br>
+        <em>runtime feature.</em><br>
+        Not a test suite.
       </h2>
-      
-      <p class="animate" data-animate="slideUp" style="margin-top: 3vw; max-width: 60ch;">
-        The processing machinery is identical across legal, clinical, cybersecurity, and financial contexts. Only the corpus changes. This is the single architectural decision that makes the platform viable as a business — one engine, many data stores.
+      <p class="reveal delay-1" style="color:rgba(245,242,236,0.6); font-size:clamp(0.95rem,1.4vw,1.1rem); line-height:1.85;">
+        A test-suite judge runs in CI and is forgotten. An inline judge that the user
+        sees — with severity icons and expandable challenge text — transforms the
+        product from answer machine to evidentiary instrument.
+        <br><br>
+        In regulated domains, the UX is the architecture.
       </p>
-
-      <div class="grid-3" style="margin-top: 4vw;">
-        <div class="animate" data-animate="slideUp">
-          <div class="h4" style="margin-bottom: 1vw;">POST /query</div>
-          <p>RAG retrieval → Pro synthesis → Flash judge, inline.</p>
-        </div>
-        <div class="animate" data-animate="slideUp">
-          <div class="h4" style="margin-bottom: 1vw;">POST /risk</div>
-          <p>Clause heatmap — RED / YELLOW / GREEN — with statute citations.</p>
-        </div>
-        <div class="animate" data-animate="slideUp">
-          <div class="h4" style="margin-bottom: 1vw;">POST /redline</div>
-          <p>Clause diff + statute-backed rewrite + risk delta.</p>
-        </div>
-      </div>
     </div>
-  </section>
+  </div>
+</div>
 
-  <!-- SECTION 04: TECHNIQUES -->
-  <section class="section dark">
-    <div class="container">
-      <div class="label animate" data-animate="fadeIn">§ 04 — TECHNIQUES</div>
-      <h2 class="h1 title" style="margin-top: 2vw;">
-        <div class="title-mask">
-          <div class="title-line">How we</div>
-        </div>
-        <div class="title-mask">
-          <div class="title-line">built it</div>
-        </div>
-      </h2>
+<!-- ═══════════════════════════ LIVE OUTPUTS ═══════════════════════════ -->
+<section style="background:white;">
+  <div class="wrap">
+    <div class="eyebrow reveal"><span class="eyebrow-text">§ 04 — Validated Output</span></div>
+    <h2 class="reveal" style="margin-bottom:1rem;">Real responses.<br><em>Three domains.<br>Same engine.</em></h2>
+    <p class="reveal delay-1" style="max-width:520px; margin-bottom:4rem;">
+      The same engine served cybersecurity SLAs, clinical trial protocols, and
+      constitutional law without a code change. Each domain is a corpus upload
+      and a preamble adjustment.
+    </p>
 
-      <div style="margin-top: 4vw;">
-        <div class="principle-item animate" data-animate="slideUp">
-          <div class="principle-number">01</div>
-          <div class="principle-content">
-            <h3 class="h3" style="margin-bottom: 1vw;">Vertex AI RAG Engine + Discovery Engine</h3>
-            <p>Two-stage retrieval pipeline. Vertex AI RAG Engine ingests PDFs into managed vector stores. Production retrieval uses Discovery Engine Search API for robust unstructured parsing, advanced OCR on tabular documents, and extractive segments.</p>
-          </div>
-        </div>
-
-        <div class="principle-item animate" data-animate="slideUp">
-          <div class="principle-number">02</div>
-          <div class="principle-content">
-            <h3 class="h3" style="margin-bottom: 1vw;">Gemini Pro synthesis + Flash adversarial judge</h3>
-            <p>Gemini 1.5 Pro synthesises the answer from ranked chunks. The answer is then passed to Gemini Flash acting as an adversarial evaluator, returning a structured verdict with faithfulness score, citation accuracy, and concrete counter-arguments.</p>
-          </div>
-        </div>
-
-        <div class="principle-item animate" data-animate="slideUp">
-          <div class="principle-number">03</div>
-          <div class="principle-content">
-            <h3 class="h3" style="margin-bottom: 1vw;">Session-level merkle provenance chaining</h3>
-            <p>Every interaction produces a provenance hash chained to the previous hash in the session. Any tampering with a single past answer breaks every subsequent hash. The session becomes a tamper-evident audit trail.</p>
-          </div>
-        </div>
-
-        <div class="principle-item animate" data-animate="slideUp">
-          <div class="principle-number">04</div>
-          <div class="principle-content">
-            <h3 class="h3" style="margin-bottom: 1vw;">Modal serverless persistence ledger</h3>
-            <p>All persistence stored on Modal, not a database. Five volumes (NDJSON append-only) and two dicts constitute the entire data layer. The append-only pattern gives cryptographic reproducibility at zero idle cost.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- SECTION 05: LIVE OUTPUTS -->
-  <section class="section light">
-    <div class="container">
-      <div class="label animate" data-animate="fadeIn">§ 05 — LIVE OUTPUTS</div>
-      <h2 class="h1 title" style="margin-top: 2vw;">
-        <div class="title-mask">
-          <div class="title-line">Real responses</div>
-        </div>
-        <div class="title-mask">
-          <div class="title-line">from production</div>
-        </div>
-      </h2>
-
-      <div class="grid-2" style="margin-top: 4vw;">
-        <div class="animate" data-animate="slideUp">
-          <div class="label">IT SECURITY / PROCUREMENT SLA</div>
-          <h3 class="h3" style="margin: 2vw 0;">Risk Level: <span class="accent-text">YELLOW</span></h3>
-          <p style="font-size: var(--font-s-p);">Three critical gaps flagged:</p>
-          <ul style="list-style: none; padding: 0; margin-top: 1vw;">
-            <li style="padding: 0.5vw 0;">⚠ 30-business-day notification is commercially unacceptable</li>
-            <li style="padding: 0.5vw 0;">⚠ "Commercially reasonable efforts" dilutes absolute obligation</li>
-            <li style="padding: 0.5vw 0;">⚠ $5,000 liability cap is nominal vs. actual breach costs</li>
-          </ul>
-          <div class="label" style="margin-top: 2vw;">STATUTES CITED: Contract Act, 1872 · ICT Act, 2006</div>
-        </div>
-
-        <div class="animate" data-animate="slideUp">
-          <div class="label">CLINICAL TRIAL PROTOCOL (GCP)</div>
-          <h3 class="h3" style="margin: 2vw 0;">Risk Delta: <span class="accent-text">HIGH → LOW</span></h3>
-          <p style="font-size: var(--font-s-p);">"Any adverse events observed by the investigator will be recorded in the participant log promptly, and no later than 72 hours of discovery. All Serious Adverse Events (SAEs), whether or not resulting in death, must be reported immediately..."</p>
-          <div class="label" style="margin-top: 2vw;">Aligned with ICH-GCP international guidelines. Confidence: 0.95</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- SECTION 06: LESSONS LEARNED -->
-  <section class="section dark">
-    <div class="container">
-      <div class="label animate" data-animate="fadeIn">§ 06 — LESSONS LEARNED</div>
-      <h2 class="h1 title" style="margin-top: 2vw;">
-        <div class="title-mask">
-          <div class="title-line">Things the</div>
-        </div>
-        <div class="title-mask">
-          <div class="title-line">documentation</div>
-        </div>
-        <div class="title-mask">
-          <div class="title-line">doesn't tell you</div>
-        </div>
-      </h2>
-
-      <div style="margin-top: 4vw;">
-        <div class="principle-item animate" data-animate="slideUp">
-          <div class="principle-number">01</div>
-          <div class="principle-content">
-            <h3 class="h3">Serverless beats managed, always.</h3>
-          </div>
-        </div>
-
-        <div class="principle-item animate" data-animate="slideUp">
-          <div class="principle-number">02</div>
-          <div class="principle-content">
-            <h3 class="h3">Reranking is not optional.</h3>
-          </div>
-        </div>
-
-        <div class="principle-item animate" data-animate="slideUp">
-          <div class="principle-number">03</div>
-          <div class="principle-content">
-            <h3 class="h3">The adversarial judge must be a runtime feature.</h3>
-          </div>
-        </div>
-
-        <div class="principle-item animate" data-animate="slideUp">
-          <div class="principle-number">04</div>
-          <div class="principle-content">
-            <h3 class="h3">Provenance chaining is cheap and priceless.</h3>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- FOOTER -->
-  <footer class="section light" style="padding: var(--spacing-lg) 0;">
-    <div class="container">
-      <div class="grid-2">
+    <!-- CASE 01 -->
+    <div class="case-card reveal">
+      <div class="case-header">
         <div>
-          <div class="label">DOCRAG-LEGAL V2</div>
-          <p style="margin-top: 1vw;">Built on GCP · Deployed us-central1 · 2026</p>
+          <div class="case-docket">Case · 01 · IT Security / Procurement SLA · POST /risk</div>
+        </div>
+        <div class="case-verdict verdict-warn">Risk Level · Yellow</div>
+      </div>
+      <div class="case-clause">
+        "...Vendor will use commercially reasonable efforts to notify Customer within thirty (30) business days.
+        Vendor's total aggregate liability for any security-related claims is strictly limited to $5,000."
+      </div>
+      <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:1.5rem; margin-bottom:1.5rem;">
+        <div>
+          <div class="label-accent" style="margin-bottom:0.5rem;">⚠ Notification window</div>
+          <p style="font-size:0.88rem; color:var(--ink2);">30-business-day notification is commercially unacceptable for a security incident.</p>
         </div>
         <div>
-          <a href="#" class="exo-link">
-            <div class="circle">
-              <div class="circle-fill"></div>
-            </div>
-            <span class="link-text">Read the architecture</span>
-          </a>
+          <div class="label-accent" style="margin-bottom:0.5rem;">⚠ Obligation dilution</div>
+          <p style="font-size:0.88rem; color:var(--ink2);">"Commercially reasonable efforts" weakens what should be an absolute obligation.</p>
+        </div>
+        <div>
+          <div class="label-accent" style="margin-bottom:0.5rem;">⚠ Liability cap</div>
+          <p style="font-size:0.88rem; color:var(--ink2);">$5,000 aggregate cap is nominal against real breach exposure and recovery costs.</p>
         </div>
       </div>
+      <div class="label">Statutes cited: Contract Act, 1872 · ICT Act, 2006</div>
     </div>
-  </footer>
 
-  <script src="script.js" defer></script>
+    <!-- CASE 02 -->
+    <div class="case-card reveal">
+      <div class="case-header">
+        <div>
+          <div class="case-docket">Case · 02 · Clinical Trial Protocol · POST /redline · Risk delta: HIGH → LOW</div>
+        </div>
+        <div class="case-verdict verdict-pass">Rewrite Complete</div>
+      </div>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:2rem;">
+        <div>
+          <div class="label" style="margin-bottom:0.75rem;">Before</div>
+          <div class="case-clause" style="border-left-color:var(--ink4);">
+            "Any adverse events will be recorded within 14 days. Serious adverse events that do not result in death do not require immediate expedited reporting to the IRB or sponsor."
+          </div>
+        </div>
+        <div>
+          <div class="label-accent" style="margin-bottom:0.75rem;">After</div>
+          <div class="case-clause">
+            "Any adverse events will be recorded promptly, no later than 72 hours of discovery. All Serious Adverse Events, whether or not resulting in death, must be reported immediately — in no event later than 24 hours of awareness — to the sponsor and IRB."
+          </div>
+        </div>
+      </div>
+      <div class="label" style="margin-top:1.5rem;">Aligned with: ICH-GCP international guidelines · Confidence: 0.95</div>
+    </div>
+
+    <!-- CASE 03 -->
+    <div class="case-card reveal">
+      <div class="case-header">
+        <div>
+          <div class="case-docket">Case · 03 · Constitutional Law · POST /query</div>
+        </div>
+        <div class="case-verdict verdict-pass">PASS · Faithfulness 1.0</div>
+      </div>
+      <div style="margin-bottom:1.5rem;">
+        <div class="label" style="margin-bottom:0.5rem;">Query</div>
+        <p style="font-size:0.95rem; color:var(--ink2); font-style:italic;">"How is the President of the Republic elected and what is the term of office?"</p>
+      </div>
+      <div class="case-clause">
+        System answer: "Insufficient context to answer."<br><br>
+        Adversarial challenge: The retrieved context contains only metadata for the Bangladesh Labour Act 2006, which does not address presidential election procedures. Speculation would constitute a faithfulness violation.
+      </div>
+      <p style="font-size:0.88rem; color:var(--ink3); font-style:italic; margin-top:1.25rem;">
+        The system correctly refused to answer when the corpus didn't cover the question.
+        A faithfulness score of 1.0 on a refusal is the safety behavior working as designed.
+        In regulated domains, "I don't know" is the most valuable answer.
+      </p>
+      <div class="label" style="margin-top:1rem; font-family:'DM Mono',monospace; font-size:0.62rem; color:var(--ink4);">provenance_hash: dd1817e956ddf46c</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════════════════════ PROVENANCE CHAIN ═══════════════════════════ -->
+<section>
+  <div class="wrap">
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:clamp(3rem,6vw,8rem); align-items:start;">
+      <div class="reveal">
+        <div class="eyebrow"><span class="eyebrow-text">§ 05 — Provenance Architecture</span></div>
+        <h2>Ten lines of SHA-256<br>turn a chat log into<br><em>a tamper-evident<br>audit trail.</em></h2>
+        <p style="margin-top:2rem; color:var(--ink3);">
+          Any tampering with a single past answer breaks every subsequent hash in the
+          chain. The session becomes an audit trail — exactly the property regulated
+          industries need for discovery and compliance review.
+        </p>
+      </div>
+      <div class="reveal delay-1">
+        <div style="border:1px solid var(--rule);">
+          <div class="chain-row" style="border-top:1px solid var(--rule);">
+            <span class="chain-q">Q₁</span>
+            <span class="chain-formula">SHA256("genesis" + Q + A + context)</span>
+            <span class="chain-hash">→ a7f3c2e8d1b4...</span>
+          </div>
+          <div class="chain-row">
+            <span class="chain-q">Q₂</span>
+            <span class="chain-formula">SHA256("a7f3..." + Q + A + context)</span>
+            <span class="chain-hash">→ 9c2b7a4f1e6d...</span>
+          </div>
+          <div class="chain-row">
+            <span class="chain-q">Q₃</span>
+            <span class="chain-formula">SHA256("9c2b..." + Q + A + context)</span>
+            <span class="chain-hash">→ dd1817e956df...</span>
+          </div>
+        </div>
+        <p style="font-size:0.85rem; color:var(--ink4); font-style:italic; margin-top:1.25rem;">
+          Genesis hash is the literal string "genesis". Every session starts clean
+          and builds a verifiable chain from the first interaction.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════ GCP STACK ═══════════════════════════ -->
+<section style="background:white;">
+  <div class="wrap">
+    <div class="eyebrow reveal"><span class="eyebrow-text">§ 06 — GCP Services</span></div>
+    <h2 class="reveal" style="margin-bottom:4rem;">Every Google Cloud service<br>this project touches.</h2>
+    <div>
+      <div class="stack-row reveal"><span class="stack-name">Vertex AI · RAG Engine</span><p class="stack-desc">Corpus ingestion, managed vector stores, text-embedding-004, async GCS imports. Chunk sizing: 1024 tokens / 200 overlap for statutes, 512 / 100 for contracts.</p></div>
+      <div class="stack-row reveal"><span class="stack-name">Vertex AI · Gemini</span><p class="stack-desc">Gemini 1.5 Pro (T=0.1) for synthesis — forbids speculation, requires [N] citation format. Flash (T=0.0, structured JSON) for the adversarial judge on every request.</p></div>
+      <div class="stack-row reveal"><span class="stack-name">Vertex AI · Ranking API</span><p class="stack-desc">semantic-ranker-512@latest re-scores top-20 candidates to top-5 before synthesis. The single biggest quality lever — faithfulness delta vs. unreranked synthesis is roughly +0.15.</p></div>
+      <div class="stack-row reveal"><span class="stack-name">Discovery Engine</span><p class="stack-desc">Enterprise-tier Search API, unstructured PDF parsing, advanced OCR, extractive segments. Provisioned under $1,000 Gen AI App Builder credits.</p></div>
+      <div class="stack-row reveal"><span class="stack-name">Cloud Run</span><p class="stack-desc">Source-based FastAPI deploy, autoscaling 0–5 instances, OIDC auth, enterprise security headers (HSTS, X-Frame, XSS), 1Gi memory.</p></div>
+      <div class="stack-row reveal"><span class="stack-name">Modal Persistence</span><p class="stack-desc">Five append-only NDJSON volumes (eval logs, risk logs, redline logs, doc registry, ingest jobs) and two dicts (session state + eval cache). Zero idle cost.</p></div>
+      <div class="stack-row reveal"><span class="stack-name">Firebase Auth</span><p class="stack-desc">JWT verification via ADC. Custom role claims: admin (ingest, batch eval), analyst (risk, redline, query), viewer (query, eval read). Zero JSON key files in container.</p></div>
+      <div class="stack-row reveal"><span class="stack-name">Cloud Scheduler</span><p class="stack-desc">6-hourly POST /eval/batch via OIDC-authenticated HTTP job. Continuous evaluation loop — not a test suite run once and forgotten.</p></div>
+      <div class="stack-row reveal"><span class="stack-name">Secret Manager</span><p class="stack-desc">All credentials. Zero secrets in source code, environment files, or container images.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════ LESSONS ═══════════════════════════ -->
+<section>
+  <div class="wrap">
+    <div class="eyebrow reveal"><span class="eyebrow-text">§ 07 — What the Docs Don't Tell You</span></div>
+    <h2 class="reveal" style="margin-bottom:4rem;">Eight production blockers.<br><em>Eight precise interventions.</em></h2>
+    <div>
+      <div class="lesson-row reveal">
+        <span class="lesson-num">01</span>
+        <div><div class="lesson-title">Serverless beats managed, always</div><p class="lesson-body">The RAG Engine's default managed-Spanner path hit capacity limits we couldn't clear. Switching to serverless via a REST PATCH we wrote ourselves unlocked the whole pipeline. When Google ships two paths, the newer one is usually less congested.</p></div>
+      </div>
+      <div class="lesson-row reveal">
+        <span class="lesson-num">02</span>
+        <div><div class="lesson-title">Reranking is not optional</div><p class="lesson-body">Raw embeddings retrieve plausible chunks. The semantic reranker retrieves the right chunks. On regulatory text, the faithfulness delta between reranked and unreranked synthesis is roughly +0.15 — the difference between PASS and REVIEW verdicts.</p></div>
+      </div>
+      <div class="lesson-row reveal">
+        <span class="lesson-num">03</span>
+        <div><div class="lesson-title">The adversarial judge must be a runtime feature</div><p class="lesson-body">A test-suite judge runs in CI and is forgotten. An inline judge the user sees — with severity icons and expandable challenge text — transforms the product from answer machine to evidentiary instrument. The UX is the architecture.</p></div>
+      </div>
+      <div class="lesson-row reveal">
+        <span class="lesson-num">04</span>
+        <div><div class="lesson-title">Provenance chaining is cheap and priceless</div><p class="lesson-body">Ten lines of SHA-256 code turn a chat log into a tamper-evident audit trail. Regulated industries cannot deploy without this. It is the difference between a demo and a product.</p></div>
+      </div>
+      <div class="lesson-row reveal">
+        <span class="lesson-num">05</span>
+        <div><div class="lesson-title">ADC is a design pattern, not just auth</div><p class="lesson-body">Every time we used Application Default Credentials instead of a JSON key file, the deployment got simpler, safer, and more portable. Firebase Admin, Discovery Engine, gcloud — all unified under one identity model.</p></div>
+      </div>
+      <div class="lesson-row reveal">
+        <span class="lesson-num">06</span>
+        <div><div class="lesson-title">Async + blocking SDKs need run_in_executor</div><p class="lesson-body">Modal's .remote() is synchronous. FastAPI is async. Calling one from the other on the event loop destroys latency for every other request. Wrapping in asyncio.run_in_executor is non-negotiable at production traffic.</p></div>
+      </div>
+      <div class="lesson-row reveal">
+        <span class="lesson-num">07</span>
+        <div><div class="lesson-title">The refusal is a feature</div><p class="lesson-body">The constitutional law demo answered "Insufficient context" with a perfect faithfulness score of 1.0. The system correctly refused to speculate. In regulated domains, a well-reasoned no is more valuable than a plausible-sounding wrong answer.</p></div>
+      </div>
+      <div class="lesson-row reveal">
+        <span class="lesson-num">08</span>
+        <div><div class="lesson-title">A domain-agnostic core compounds</div><p class="lesson-body">The same engine served cybersecurity SLAs, clinical trial protocols, and constitutional law without a code change. Each new vertical is a corpus upload and a preamble tweak. This is the business model — not a product per domain.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════ FOOTER ═══════════════════════════ -->
+<footer>
+  <div class="wrap">
+    <div class="footer-inner">
+      <div class="footer-brand">DocRAG-Legal V2 · Deployed us-central1<br>sam@stitchmark.space · Dhaka, Bangladesh</div>
+      <div class="footer-links">
+        <a href="index.html">Home</a>
+        <a href="erudite.html">Erudite V2</a>
+        <a href="floodguard.html">FloodGuard</a>
+        <a href="lab.html">The Lab</a>
+      </div>
+      <div class="footer-brand" style="text-align:right;">Stitchmark | Space<br>Built on Google Cloud · © 2026</div>
+    </div>
+  </div>
+</footer>
+
+<script src="main.js"></script>
 </body>
 </html>
