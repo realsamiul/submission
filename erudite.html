@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Erudite V2 — Admissions Intelligence | Stitchmark Space</title>
+<meta name="description" content="Forensic financial aid intelligence for high-need Bangladeshi students. Structured visual counsel, not generic chatbot advice.">
+<link rel="stylesheet" href="style.css">
+<style>
+  :root { --accent: #D4A52C; --accent2: #C2931C; --accent-light: rgba(212,165,44,0.12); }
+  .breadcrumb a, .eyebrow-text, .case-verdict.pass, .stat-val, .compare-col-head.good,
+  .endpoint-method, .stack-name, .lesson-title, .label-accent { color: var(--accent); }
+  .btn-accent { background: var(--accent); }
+  .btn-accent:hover { background: var(--accent2); }
+  .stat-strip { display: grid; grid-template-columns: repeat(4,1fr); border:1px solid var(--rule); margin-top:4rem; }
+  .stat-strip-cell { padding:2rem 2rem; border-right:1px solid var(--rule); }
+  .stat-strip-cell:last-child { border-right:none; }
+  .stat-val { font-family:'Cormorant Garamond', Georgia, serif; font-size:clamp(2rem,4vw,3.2rem); font-weight:300; line-height:1; margin-bottom:0.5rem; }
+  .compare-grid { display:grid; grid-template-columns:1fr 1fr; gap:0; border:1px solid var(--rule); }
+  .compare-col { padding:2.5rem; }
+  .compare-col:first-child { border-right:1px solid var(--rule); }
+  .compare-header { font-family:'DM Mono',monospace; font-size:0.7rem; letter-spacing:0.12em; text-transform:uppercase; margin-bottom:2rem; padding-bottom:1rem; border-bottom:1px solid var(--rule); }
+  .compare-row { padding:0.9rem 0; border-bottom:1px solid var(--rule2); font-size:0.92rem; line-height:1.5; color:var(--ink2); }
+  .compare-col.good .compare-row { color:var(--ink); }
+  .payload-block { background:var(--cream2); padding:2rem; font-family:'DM Mono',monospace; font-size:0.75rem; line-height:1.6; overflow-x:auto; border-left:3px solid var(--accent); margin:2rem 0; white-space:pre-wrap; }
+  .service-grid { display:grid; grid-template-columns:1fr 1fr; gap:1px; background:var(--rule); border:1px solid var(--rule); margin:2rem 0; }
+  .service-item { background:white; padding:1.5rem; }
+  .service-name { font-family:'DM Mono',monospace; font-size:0.7rem; letter-spacing:0.06em; color:var(--accent); margin-bottom:0.5rem; }
+  .service-desc { font-size:0.88rem; color:var(--ink2); line-height:1.6; }
+  @media (max-width:700px) { .stat-strip { grid-template-columns:1fr 1fr; } .compare-grid { grid-template-columns:1fr; } .service-grid { grid-template-columns:1fr; } }
+  .lesson-card { padding:2rem 0; border-bottom:1px solid var(--rule2); }
+  .lesson-num { font-family:'DM Mono',monospace; font-size:0.65rem; color:var(--accent); margin-bottom:0.5rem; }
+  .lesson-title-small { font-weight:600; font-family:var(--ff-mono); font-size:0.8rem; letter-spacing:0.02em; }
+  .badge-done, .badge-pending { font-family:'DM Mono',monospace; font-size:0.6rem; padding:0.2rem 0.6rem; border-radius:0; display:inline-block; }
+  .badge-done { background:#2D6A3F; color:white; }
+  .badge-pending { background:var(--ink4); color:white; }
+  .checklist-2col { display:grid; grid-template-columns:1fr 1fr; gap:2rem; margin:2rem 0; }
+  .checklist-col ul { list-style:none; }
+  .checklist-col li { margin-bottom:0.8rem; font-size:0.92rem; }
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-brand" href="index.html">Stitchmark <span>|</span> Space</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="erudite.html" class="active">Erudite</a></li>
+    <li><a href="cricsight.html">CricSight</a></li>
+    <li><a href="floodguard.html">FloodGuard</a></li>
+    <li><a href="lab.html">Lab</a></li>
+  </ul>
+</nav>
+
+<section class="page-hero" style="background:white;">
+  <div class="wrap">
+    <p class="breadcrumb"><a href="index.html">Stitchmark | Space</a> <span>→</span> Erudite V2</p>
+    <div class="reveal">
+      <div class="docket-header" style="font-family:'DM Mono',monospace; font-size:0.68rem; letter-spacing:0.14em; text-transform:uppercase; border:1px solid var(--rule); display:inline-block; padding:0.6em 1.25em; margin-bottom:3rem;">
+        CASE FILE · 002 · ERUDITE V2 · PENDING RESOURCES
+      </div>
+    </div>
+    <h1 class="reveal" style="max-width:800px; margin-bottom:2rem;">
+      The guidance counselor<br>
+      Bangladeshi applicants<br>
+      <em>never had.</em>
+    </h1>
+    <p class="reveal delay-1" style="max-width:580px; color:var(--ink2); line-height:1.85;">
+      A bespoke admissions intelligence system that replaces sterile chatbot responses 
+      with forensic financial aid auditing, structured visual counsel, and unapologetic 
+      reality checks — built specifically for high-need students navigating elite US 
+      admissions from Dhaka, Sylhet, and Chittagong.
+    </p>
+    <div class="stat-strip reveal delay-2">
+      <div class="stat-strip-cell"><div class="stat-val">70+</div><div class="stat-lbl">PAGES PER UNIVERSITY REPORT</div></div>
+      <div class="stat-strip-cell"><div class="stat-val">$16K</div><div class="stat-lbl">MEDIAN AID MISPRICING GAP</div></div>
+      <div class="stat-strip-cell"><div class="stat-val">Need-Blind</div><div class="stat-lbl">SCHOOLS CORRECTLY MAPPED</div></div>
+      <div class="stat-strip-cell"><div class="stat-val">SSC/HSC</div><div class="stat-lbl">CURRICULUM BARRIER DECODED</div></div>
+    </div>
+  </div>
+</section>
+
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <span class="marquee-item">Forensic financial aid auditing</span><span class="marquee-dot">◆</span>
+    <span class="marquee-item">Structured visual counsel</span><span class="marquee-dot">◆</span>
+    <span class="marquee-item">SSC/HSC contextualization</span><span class="marquee-dot">◆</span>
+    <span class="marquee-item">Need‑blind endowment mapping</span><span class="marquee-dot">◆</span>
+    <span class="marquee-item">Adversarial self‑audit</span><span class="marquee-dot">◆</span>
+    <span class="marquee-item">Cryptographic provenance chain</span><span class="marquee-dot">◆</span>
+  </div>
+</div>
+
+<section>
+  <div class="wrap">
+    <div class="eyebrow reveal"><span class="eyebrow-text">§ 01 — THE ASYMMETRY</span></div>
+    <h2 class="reveal" style="max-width:700px;">Generic advice doesn't just fail Bangladeshi applicants.<br><em>It actively harms them.</em></h2>
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:3rem; margin-top:3rem;">
+      <div class="reveal"><p>Every year, thousands of high-achieving Bangladeshi students apply to US universities using advice calibrated for American suburban applicants. The infrastructure of guidance — school counselors, college prep courses, alumni networks — simply doesn't exist here in the same form. What fills the gap is generic AI advice and marketing material written for a different student entirely.</p></div>
+      <div class="reveal delay-1"><p>The consequences are predictable: financial mispricing, curriculum gate blindness, asymmetric risk ignorance, and wall-of-text fatigue. Erudite V2 exists because the standard playbook assumes infrastructure, context, and emotional bandwidth that Bangladeshi applicants do not have.</p></div>
+    </div>
+    <div style="margin-top:3rem; border-left:3px solid var(--accent); padding-left:2rem;">
+      <div class="lesson-num" style="color:var(--accent);">FINANCIAL MISPRICING</div>
+      <p class="lesson-body">Students see "$82k average international aid" in marketing materials and budget accordingly — not realizing the actual institutional award median is $66k. A $16,000 gap per year changes enrollment decisions.</p>
+      <div class="lesson-num" style="color:var(--accent); margin-top:1.5rem;">CURRICULUM GATE BLINDNESS</div>
+      <p class="lesson-body">Universities say they "accept global curricula" but provide zero explicit guidance for SSC/HSC grading contexts. Applicants get filtered before holistic review — not because of merit, but because no one told them how to translate their record.</p>
+      <div class="lesson-num" style="color:var(--accent); margin-top:1.5rem;">ASYMMETRIC RISK IGNORANCE</div>
+      <p class="lesson-body">A student with a 1430 SAT applies to three low-endowment safety schools and one reach. The safer financial bet — a need-blind, full-need institution like Amherst or Williams — gets skipped because selectivity looks scarier than sticker price.</p>
+      <div class="lesson-num" style="color:var(--accent); margin-top:1.5rem;">WALL-OF-TEXT FATIGUE</div>
+      <p class="lesson-body">Existing AI counselors dump dense paragraphs on anxious 17-year-olds. The information may be technically correct but psychologically inaccessible at the moment of highest stress. The format is the failure.</p>
+    </div>
+  </div>
+</section>
+
+<div style="padding:clamp(4rem,8vw,6rem) 0; border-top:1px solid var(--rule); border-bottom:1px solid var(--rule);">
+  <div class="wrap"><p class="pull-quote reveal" style="max-width:900px;">"Not just accurate answers — <em>structured visual counsel</em>. Every response is parsed into scannable badges, interactive charts, and collapsible detail panels. The UI is the intervention."</p></div>
+</div>
+
+<section>
+  <div class="wrap">
+    <div class="eyebrow reveal"><span class="eyebrow-text">§ 02 — DESIGN PHILOSOPHY</span></div>
+    <h2 class="reveal" style="margin-bottom:3rem;">Not a chatbot.<br><em>A structured counsel engine.</em></h2>
+    <div class="compare-grid reveal">
+      <div class="compare-col"><div class="compare-header">✗ STANDARD AI COUNSELOR</div>
+        <div class="compare-row">Flat text responses</div><div class="compare-row">Generic encouragement ("You can do it!")</div>
+        <div class="compare-row">Marketing-headline financial data</div><div class="compare-row">One-size-fits-all curriculum advice</div>
+        <div class="compare-row">No verification layer</div><div class="compare-row">Session amnesia</div>
+        <div class="compare-row">Tone: cheerful assistant</div>
+      </div>
+      <div class="compare-col good"><div class="compare-header">✓ ERUDITE V2</div>
+        <div class="compare-row">Structured JSON → rendered as cards, charts, accordions</div>
+        <div class="compare-row">Unapologetic data-backed reality checks</div>
+        <div class="compare-row">Forensic CDS audit with actual award medians</div>
+        <div class="compare-row">Bangladesh-specific contextualization flags</div>
+        <div class="compare-row">Adversarial self-audit on every response</div>
+        <div class="compare-row">Cryptographic provenance chaining per session</div>
+        <div class="compare-row">Tone: compassionate older sibling who's been through it</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section style="background:white;">
+  <div class="wrap">
+    <div class="eyebrow reveal"><span class="eyebrow-text">§ 03 — DATA LAYER</span></div>
+    <h2 class="reveal">Eliminating the<br><em>JSON schema apocalypse.</em></h2>
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:3rem; margin-top:2rem;">
+      <div class="reveal"><p>Traditional RAG systems force complex, irregular admissions datasets into rigid schemas. Every time a university alters a minor policy, the database breaks. Erudite V2 stores Deep Research Reports — 70+ pages per university — in raw markdown format directly in Cloud Storage. No ETL. No schema migration. No fragility.</p></div>
+      <div class="reveal delay-1"><p>Discovery Engine's serverless layout parser ingests, chunks, and indexes raw files via native parsing (<code>data_schema="content"</code>). Semantic search retrieves exact paragraphs, metrics, and CDS citations without a managed database. Zero Spanner costs. The nuance that structured schemas destroy is preserved entirely.</p></div>
+    </div>
+    <div class="service-grid" style="margin-top:3rem;">
+      <div class="service-item"><div class="service-name">RAW MARKDOWN STORAGE</div><div class="service-desc">70+ page Deep Research Reports per university stored without parsing or ETL. Policy changes require a file update, not a schema migration.</div></div>
+      <div class="service-item"><div class="service-name">DISCOVERY ENGINE NATIVE PARSING</div><div class="service-desc">Semantic search retrieves exact paragraphs, metrics, and CDS citations without a managed database.</div></div>
+      <div class="service-item"><div class="service-name">ZERO IDLE COST</div><div class="service-desc">Serverless storage natively. No Spanner. No idle hourly billing. The $1,000 Gen AI App Builder credit absorbs Discovery Engine retrieval.</div></div>
+      <div class="service-item"><div class="service-name">CREDIT-SAFE RETRIEVAL</div><div class="service-desc">Standard Discovery Engine Search API performs state-of-the-art semantic retrieval without calling Vertex AI prediction meters.</div></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="eyebrow reveal"><span class="eyebrow-text">§ 04 — THE COUNSELOR YOU NEVER HAD</span></div>
+    <h2 class="reveal">Three linguistic constraints.<br><em>Enforced at the prompt level.</em></h2>
+    <div style="margin-top:2rem;">
+      <div class="lesson-card reveal"><div class="lesson-num">CONSTRAINT 01 · TONE</div><p class="lesson-body">Calm, selective, authoritative, deeply realistic. Never uses AI filler — no "Sure, I can help with that!", no "Great question!". Speaks with quiet, unapologetic data-backed confidence. The voice of someone who has read the actual CDS, not the admissions brochure.</p></div>
+      <div class="lesson-card reveal"><div class="lesson-num">CONSTRAINT 02 · FINANCIAL VERIFICATION</div><p class="lesson-body">If a student cites marketing-headline financial data, the system corrects it against audited CDS figures before proceeding. Budget around the mid-60s, not the $82k headline. A 4-year guarantee is worth more than a slightly larger freshman year grant.</p></div>
+      <div class="lesson-card reveal"><div class="lesson-num">CONSTRAINT 03 · REALITY CHECK PROTOCOL</div><p class="lesson-body">If a student with a weak test score gravitates toward low-endowment safety schools, the system gently but firmly deconstructs the asymmetric risk. Full-need endowments are actually safer financial bets despite extreme selectivity. Over-explain your SSC/HSC grading context or risk being filtered before holistic review begins.</p></div>
+    </div>
+    <p class="reveal delay-2" style="margin-top:2rem; font-style:italic; color:var(--ink3);">Injected as a structured Counselor Preamble directly into the Gemini synthesis prompt. Not a suggestion. A hard constraint.</p>
+  </div>
+</section>
+
+<section style="background:white;">
+  <div class="wrap">
+    <div class="eyebrow reveal"><span class="eyebrow-text">§ 05 — VISUAL COUNSEL</span></div>
+    <h2 class="reveal">Walls of dense text repel anxious high schoolers.<br><em>We don't output them.</em></h2>
+    <p class="reveal" style="max-width:560px; margin-bottom:2rem;">The FastAPI backend returns a Hybrid Structured Response Payload — both structured JSON and minimal, high-nuance markdown blocks. The Next.js frontend reads this payload and renders interactive UI components dynamically.</p>
+    <div class="payload-block reveal">
+{
+  "greeting": "Let's look at Amherst. The money is real here, but the gate is incredibly narrow.",
+  "quick_stats": [
+    { "label": "Policy Type", "value": "Need-Blind", "badge": "success" },
+    { "label": "Average Aid", "value": "$66,093", "badge": "info" },
+    { "label": "Coverage Rate", "value": "77.9%", "badge": "warning" }
+  ],
+  "audit_details": {
+    "the_catch": "Amherst advertises $82k+ average aid. CDS H6 audit shows $66,093 median.",
+    "curriculum_gate": "STATUS: CONDITIONAL. Zero explicit SSC/HSC guidance on record.",
+    "clutch_factor": "Williams guarantees 100% need for all 4 years. Worth more than a larger freshman grant."
+  },
+  "provenance_hash": "e3bb509dd03e8a84..."
+}
+    </div>
+    <div class="reveal" style="display:flex; gap:2rem; flex-wrap:wrap; margin-top:1rem;">
+      <span class="label-accent">→ Collapsible accordions for audit details</span>
+      <span class="label-accent">→ Spacious metric badges with color coding</span>
+      <span class="label-accent">→ Interactive SVG pie charts for aid distribution</span>
+      <span class="label-accent">→ Provenance hash in monospace at bottom</span>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="eyebrow reveal"><span class="eyebrow-text">§ 06 — VALIDATED OUTPUT</span></div>
+    <h2 class="reveal">Real response from the deployed backend.<br><em>Clinical safety corpus as proof of pattern.</em></h2>
+    <div class="case-card reveal" style="margin-top:2rem;">
+      <div class="case-header"><div class="case-docket">CASE · CLINICAL SAFETY · POST /query</div><div class="case-verdict verdict-pass">PASS · 0.96 Faithfulness</div></div>
+      <div class="label" style="margin-bottom:0.5rem;">Query</div>
+      <p style="margin-bottom:1rem;"><em>"What are the rules and guidelines for serious adverse events (SAEs)?"</em></p>
+      <div class="label-accent">Greeting</div>
+      <p class="case-clause" style="background:var(--cream2);">"Let's look at this together. The timeline is strict here."</p>
+      <div style="display:grid; grid-template-columns:repeat(2,1fr); gap:1.5rem;">
+        <div><div class="label-accent">Quick Stats</div><p>Reporting Window: 24 Hours (danger)<br>Standard AE Logging: 3 Days (warning)</p></div>
+        <div><div class="label-accent">Audit Feedback</div><p>Loopholes flagged: expedited reporting loophole closed.<br>Curriculum warning: none.<br>Pipeline alert: confirmed.</p></div>
+      </div>
+      <div class="label" style="margin-top:1rem;">Provenance hash: e3bb509dd03e8a8498799e80d8aea4a7678b49bfd958d5c9195eb8cc89e2f277</div>
+      <p class="label" style="margin-top:1rem; color:var(--ink4);">Note: This demo uses the clinical safety corpus as proof of the structured output pattern. Admissions corpus will be populated upon resource activation.</p>
+    </div>
+  </div>
+</section>
+
+<section style="background:white;">
+  <div class="wrap">
+    <div class="eyebrow reveal"><span class="eyebrow-text">§ 07 — THE GCP STACK</span></div>
+    <h2 class="reveal">Every Google Cloud service<br>this project touches.</h2>
+    <div class="service-grid reveal">
+      <div class="service-item"><div class="service-name">Discovery Engine (Search API)</div><div class="service-desc">Semantic retrieval over raw markdown reports. Credit-safe under App Builder pool.</div></div>
+      <div class="service-item"><div class="service-name">Cloud Storage</div><div class="service-desc">Raw Deep Research Report storage. No database. No schema.</div></div>
+      <div class="service-item"><div class="service-name">Vertex AI · Gemini Flash</div><div class="service-desc">Counselor synthesis with structured JSON output. Temperature 0.0 for deterministic formatting.</div></div>
+      <div class="service-item"><div class="service-name">Cloud Run</div><div class="service-desc">FastAPI backend serving. Autoscaling. Enterprise security headers.</div></div>
+      <div class="service-item"><div class="service-name">Modal Persistence</div><div class="service-desc">Cryptographic provenance chaining. Session state. Append-only NDJSON ledger.</div></div>
+      <div class="service-item"><div class="service-name">Firebase Auth</div><div class="service-desc">JWT verification via ADC. Custom role claims. No JSON key files.</div></div>
+      <div class="service-item"><div class="service-name">Secret Manager</div><div class="service-desc">All credentials. Zero secrets in source.</div></div>
+      <div class="service-item"><div class="service-name">Cloud Logging</div><div class="service-desc">Request traces, audit verdicts, session integrity monitoring.</div></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="eyebrow reveal"><span class="eyebrow-text">§ 08 — WHAT THE DOCS DON'T TELL YOU</span></div>
+    <h2 class="reveal">Five lessons from building Erudite V2.</h2>
+    <div class="lesson-card reveal"><div class="lesson-num">01</div><div class="lesson-title-small">Unstructured beats structured for admissions data</div><p class="lesson-body">Forcing 70-page forensic reports into JSON schemas destroyed nuance and required endless migrations. Raw markdown + Discovery Engine native parsing preserved everything.</p></div>
+    <div class="lesson-card reveal"><div class="lesson-num">02</div><div class="lesson-title-small">Tone is a technical constraint, not a style choice</div><p class="lesson-body">Injecting the Counselor Preamble as a hard prompt constraint — not a suggestion — transformed output quality. The persona is engineered, not improvised.</p></div>
+    <div class="lesson-card reveal"><div class="lesson-num">03</div><div class="lesson-title-small">Visual scannability is the intervention</div><p class="lesson-body">Anxious 17-year-olds don't read walls of text. Structured JSON → rendered badges/charts/accordions made the same information psychologically accessible.</p></div>
+    <div class="lesson-card reveal"><div class="lesson-num">04</div><div class="lesson-title-small">Marketing headlines are dangerous</div><p class="lesson-body">"$82k average aid" vs "$66k actual median" is a $16k gap that changes enrollment decisions. Forensic CDS auditing is not optional — it's the core value proposition.</p></div>
+    <div class="lesson-card reveal"><div class="lesson-num">05</div><div class="lesson-title-small">ADC is non-negotiable</div><p class="lesson-body">Every Firebase Admin call, every Discovery Engine provisioning request uses Application Default Credentials. Zero JSON key files. Zero credential leaks. Zero deployment friction.</p></div>
+  </div>
+</section>
+
+<section style="background:white;">
+  <div class="wrap">
+    <div class="eyebrow reveal"><span class="eyebrow-text">§ 09 — READY ON DAY ONE</span></div>
+    <h2 class="reveal">Architecture validated.<br><em>Corpus loading is the only remaining step.</em></h2>
+    <div class="checklist-2col reveal">
+      <div class="checklist-col"><div class="label-accent" style="margin-bottom:1rem;">✓ Done</div>
+        <ul><li>✅ Backend deployed and health-checked at Cloud Run</li><li>✅ Discovery Engine data stores provisioned and tested</li><li>✅ Structured output schema validated against live clinical corpus</li><li>✅ Modal persistence ledger active with cryptographic chaining</li><li>✅ Enterprise security headers hardened (HSTS, XSS, X-Frame)</li></ul>
+      </div>
+      <div class="checklist-col"><div class="label-accent" style="margin-bottom:1rem;">⏳ Pending resources</div>
+        <ul><li>⏳ Vanderbilt, Yale, MIT, Amherst, Williams deep research reports</li><li>⏳ Bangladesh-specific curriculum contextualization overlays</li><li>⏳ Applicant-facing Next.js frontend rendering pipeline</li></ul>
+      </div>
+    </div>
+    <div class="pull-quote reveal" style="font-size:clamp(1.4rem,2.5vw,2rem); margin-top:3rem; border-left:3px solid var(--accent); padding-left:2rem;">
+      "Every dollar of infrastructure translates directly into structured counsel that prevents a high-need Bangladeshi student from making a $16,000 financial mispricing error. We are ready to begin on day one of resource activation."
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-inner">
+      <div class="footer-brand">ERUDITE V2 · BUILT ON GCP · PENDING RESOURCES · 2026<br>sam@stitchmark.space · Dhaka, Bangladesh</div>
+      <div class="footer-links"><a href="index.html">Home</a><a href="docrag.html">DocRAG</a><a href="floodguard.html">FloodGuard</a><a href="lab.html">The Lab</a></div>
+      <div class="footer-brand" style="text-align:right;">Stitchmark | Space<br>Applied ML · South Asia</div>
+    </div>
+  </div>
+</footer>
+
+<script src="main.js"></script>
+</body>
+</html>
