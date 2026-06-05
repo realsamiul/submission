@@ -1,72 +1,632 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Index · Selected Works</title>
-  <link rel="stylesheet" href="styles.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stitchmark | Space — Samiul Karim, Applied ML</title>
+<meta name="description" content="Production AI systems for South Asia's most underdressed data problems. Applied ML engineer based in Dhaka, Bangladesh.">
+<link rel="stylesheet" href="style.css">
+<style>
+  :root { --accent: #1A3A2A; --accent2: #2D5A3D; }
+
+  /* HERO */
+  #hero {
+    min-height: 100svh;
+    display: grid;
+    grid-template-rows: 1fr auto;
+    padding-top: clamp(8rem, 16vw, 13rem);
+    position: relative;
+  }
+  .hero-text { max-width: 960px; }
+  .hero-h1 {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-weight: 300;
+    font-size: clamp(4rem, 10vw, 10rem);
+    line-height: 0.95;
+    letter-spacing: -0.03em;
+    margin-bottom: 3rem;
+  }
+  .hero-h1 em { font-style: italic; }
+  .hero-h1 .indent { display: block; padding-left: clamp(2rem, 8vw, 8rem); }
+  .hero-sub {
+    max-width: 520px;
+    margin-bottom: 3.5rem;
+    font-size: clamp(0.95rem, 1.4vw, 1.05rem);
+    color: var(--ink2);
+    line-height: 1.85;
+  }
+  .hero-cta { display: flex; gap: 1.5rem; flex-wrap: wrap; margin-bottom: clamp(5rem, 10vw, 9rem); }
+
+  /* HERO STAT BAR — full bleed */
+  .hero-stats-bar {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    border-top: 1px solid var(--rule);
+  }
+  .hero-stat {
+    padding: 2.5rem var(--pad);
+    border-right: 1px solid var(--rule);
+  }
+  .hero-stat:last-child { border-right: none; }
+  .hero-stat-val {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: clamp(2.5rem, 5vw, 4.5rem);
+    font-weight: 300;
+    line-height: 1;
+    letter-spacing: -0.03em;
+    color: var(--ink);
+    margin-bottom: 0.5rem;
+  }
+  .hero-stat-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink4);
+  }
+  @media (max-width: 700px) {
+    .hero-stats-bar { grid-template-columns: repeat(2, 1fr); }
+    .hero-stat:nth-child(2) { border-right: none; }
+  }
+
+  /* THESIS */
+  #thesis { padding: var(--section) 0; }
+  .thesis-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(3rem, 6vw, 8rem);
+    align-items: start;
+  }
+  @media (max-width: 800px) { .thesis-grid { grid-template-columns: 1fr; } }
+
+  /* ABOUT */
+  #about { padding: var(--section) 0; background: white; }
+  .about-layout {
+    display: grid;
+    grid-template-columns: 1fr 420px;
+    gap: clamp(3rem, 6vw, 8rem);
+    align-items: start;
+  }
+  .about-body p { margin-bottom: 1.5rem; }
+  .cred-list { list-style: none; }
+  .cred-item {
+    display: grid;
+    grid-template-columns: 20px 1fr;
+    gap: 1.5rem;
+    padding: 1.5rem 0;
+    border-bottom: 1px solid var(--rule2);
+    align-items: start;
+  }
+  .cred-item:first-child { border-top: 1px solid var(--rule); }
+  .cred-dot { font-family: 'DM Mono', monospace; font-size: 0.6rem; color: var(--accent); padding-top: 0.25rem; }
+  .cred-title { font-size: 0.95rem; color: var(--ink); margin-bottom: 0.2rem; }
+  .cred-sub { font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.06em; color: var(--ink4); }
+  @media (max-width: 900px) { .about-layout { grid-template-columns: 1fr; } }
+
+  /* PROJECTS */
+  #projects { padding: var(--section) 0; }
+
+  /* GCP */
+  #gcp { padding: var(--section) 0; background: white; }
+  .gcp-intro { margin-bottom: 5rem; }
+  .credit-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+  }
+  .credit-card {
+    background: var(--cream);
+    padding: 3rem;
+  }
+  .credit-card:nth-child(1) { background: white; }
+  .credit-card:nth-child(3) { background: white; }
+  .cc-rank {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink4);
+    margin-bottom: 1rem;
+  }
+  .cc-name {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: clamp(1.5rem, 2.5vw, 2rem);
+    font-weight: 300;
+    margin-bottom: 0.75rem;
+    color: var(--ink);
+  }
+  .cc-mission { font-size: 0.92rem; color: var(--ink2); line-height: 1.75; margin-bottom: 2rem; }
+  .cc-min {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.06em;
+    color: var(--accent);
+    border-top: 1px solid var(--rule);
+    padding-top: 1.5rem;
+    margin-bottom: 1.25rem;
+  }
+  .cc-bullets { list-style: none; }
+  .cc-bullets li {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    color: var(--ink3);
+    line-height: 1.6;
+    padding: 0.4rem 0;
+    padding-left: 1rem;
+    position: relative;
+  }
+  .cc-bullets li::before { content: '→'; position: absolute; left: 0; color: var(--accent); }
+  .cc-more { font-size: 0.88rem; color: var(--ink4); font-style: italic; margin-top: 1rem; }
+  .gcp-footer-note {
+    margin-top: 2rem;
+    padding: 1.75rem 2.5rem;
+    background: var(--cream2);
+    border-left: 3px solid var(--accent);
+  }
+  .gcp-footer-note p { font-family: 'DM Mono', monospace; font-size: 0.68rem; letter-spacing: 0.04em; color: var(--ink3); line-height: 1.8; }
+  @media (max-width: 700px) { .credit-cards { grid-template-columns: 1fr; } }
+</style>
 </head>
 <body>
 
-  <!-- HERO -->
-  <header class="hero light" style="min-height: 80vh; align-items: flex-end;">
-    <div class="container">
-      <div class="label animate" data-animate="fadeIn">Index — 2026</div>
-      <h1 class="title hero-title">
-        <div class="title-mask">
-          <div class="title-line">Selected</div>
-        </div>
-        <div class="title-mask">
-          <div class="title-line">Works</div>
-        </div>
+<!-- NAV -->
+<nav>
+  <a class="nav-brand" href="index.html">Stitchmark <span>|</span> Space</a>
+  <ul class="nav-links">
+    <li><a href="#projects">Work</a></li>
+    <li><a href="#gcp">GCP</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="mailto:sam@stitchmark.space">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- ═══════════════════════════════════════
+     HERO
+     ═══════════════════════════════════════ -->
+<section id="hero">
+  <div class="wrap">
+    <div class="hero-text reveal">
+      <div class="eyebrow" style="margin-bottom:2.5rem;">
+        <span class="eyebrow-text">Applied ML · Dhaka, Bangladesh</span>
+      </div>
+      <h1 class="hero-h1">
+        The right<br>
+        <em class="indent">AI systems</em><br>
+        for the right<br>
+        170 million.
       </h1>
-    </div>
-  </header>
-
-  <!-- PROJECT GRID -->
-  <section class="section light" style="padding-top: 0;">
-    <div class="container">
-      <div class="project-grid">
-        
-        <!-- Project 01: DocRAG -->
-        <a href="docrag.html" class="project-card dark animate" data-animate="scaleIn">
-          <div class="card-number">01 / Legal Intelligence</div>
-          <h2 class="card-title title">
-            <div class="title-mask"><div class="title-line">DocRAG</div></div>
-            <div class="title-mask"><div class="title-line">Legal</div></div>
-          </h2>
-          <p class="card-desc">A contract risk intelligence system with adversarial self‑auditing for Bangladesh's commercial sectors.</p>
-          <div class="card-link">
-            View Case Study
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-          </div>
-        </a>
-
-        <!-- Project 02: Kinetik -->
-        <a href="project-2.html" class="project-card accent animate" data-animate="scaleIn">
-          <div class="card-number">02 / Urban Mobility</div>
-          <h2 class="card-title title">
-            <div class="title-mask"><div class="title-line">Kinetik</div></div>
-            <div class="title-mask"><div class="title-line">Transit</div></div>
-          </h2>
-          <p class="card-desc">Decoding fragmented city transit data into a unified, real-time dashboard for municipal planners.</p>
-          <div class="card-link">
-            View Case Study
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-          </div>
-        </a>
-
+      <p class="hero-sub">
+        Four production AI systems — contract risk auditing, admissions equity,
+        satellite flood intelligence, agricultural advisory. All built on free-tier 
+        infrastructure. All designed around the actual constraints of South Asia, 
+        not Silicon Valley.
+      </p>
+      <div class="hero-cta">
+        <a href="#projects" class="btn btn-dark">View the work ↓</a>
+        <a href="#gcp" class="btn btn-outline">GCP Credits Application</a>
       </div>
     </div>
-  </section>
+  </div>
 
-  <!-- FOOTER -->
-  <footer class="section light" style="padding: var(--spacing-lg) 0;">
-    <div class="container">
-      <div class="label">© 2026 · All Rights Reserved</div>
+  <!-- STAT BAR -->
+  <div class="hero-stats-bar reveal delay-2">
+    <div class="hero-stat">
+      <div class="hero-stat-val">4+</div>
+      <div class="hero-stat-label">Production systems</div>
     </div>
-  </footer>
+    <div class="hero-stat">
+      <div class="hero-stat-val">$0</div>
+      <div class="hero-stat-label">Cloud spend to date</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-val">170M</div>
+      <div class="hero-stat-label">People in scope</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-val">78%</div>
+      <div class="hero-stat-label">Of users offline</div>
+    </div>
+  </div>
+</section>
 
-  <script src="script.js" defer></script>
+<!-- ═══════════════════════════════════════
+     MARQUEE 01
+     ═══════════════════════════════════════ -->
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <span class="marquee-item">Contract risk auditing</span>
+    <span class="marquee-dot">◆</span>
+    <span class="marquee-item">Admissions equity</span>
+    <span class="marquee-dot">◆</span>
+    <span class="marquee-item">Satellite flood intelligence</span>
+    <span class="marquee-dot">◆</span>
+    <span class="marquee-item">Agricultural advisory</span>
+    <span class="marquee-dot">◆</span>
+    <span class="marquee-item">Built on Google Cloud</span>
+    <span class="marquee-dot">◆</span>
+    <span class="marquee-item">Contract risk auditing</span>
+    <span class="marquee-dot">◆</span>
+    <span class="marquee-item">Admissions equity</span>
+    <span class="marquee-dot">◆</span>
+    <span class="marquee-item">Satellite flood intelligence</span>
+    <span class="marquee-dot">◆</span>
+    <span class="marquee-item">Agricultural advisory</span>
+    <span class="marquee-dot">◆</span>
+    <span class="marquee-item">Built on Google Cloud</span>
+    <span class="marquee-dot">◆</span>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     THESIS
+     ═══════════════════════════════════════ -->
+<section id="thesis">
+  <div class="wrap">
+    <div class="thesis-grid">
+
+      <div class="reveal">
+        <div class="eyebrow"><span class="eyebrow-text">§ 01 — The Thesis</span></div>
+        <h2>Every country has<br>the same AI problems.<br><em>Only ours has<br>$1.60 solutions.</em></h2>
+      </div>
+
+      <div class="reveal delay-1" style="padding-top:1rem;">
+        <p style="margin-bottom:1.75rem;">
+          The standard playbook for "AI for development" is to take a mature Western
+          system, translate it, and deploy it at scale. It fails because the
+          <strong>infrastructure assumptions don't transfer</strong>. Bangladeshi garment
+          factories don't have $12,000 optical inspection rigs. 78% of the rural
+          population owns a button phone, not a smartphone. Government documents exist as
+          degraded photocopies of mixed Bengali-English text.
+        </p>
+        <p style="margin-bottom:1.75rem;">
+          My approach is different. I study the best-in-class solution in each domain,
+          identify its infrastructure assumptions, and re-architect from first principles
+          for the actual constraints of South Asia. That process consistently produces
+          systems that are 10–80× cheaper to deploy while maintaining competitive
+          accuracy — because the constraints force genuine innovation, not translation.
+        </p>
+        <p style="color:var(--ink3); font-style:italic;">
+          AI is the most powerful tool in human history that remains almost entirely
+          unavailable to the people who need it most. That is a design problem.
+          I build the designs.
+        </p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     FULL-WIDTH PULL QUOTE
+     ═══════════════════════════════════════ -->
+<div style="padding: clamp(5rem,10vw,9rem) 0; border-top: 1px solid var(--rule); border-bottom:1px solid var(--rule);">
+  <div class="wrap">
+    <p class="pull-quote reveal" style="max-width:1000px;">
+      "The insight from the garment factory: India sells ready-made optical
+      inspection for crores. I rebuilt it on a recycled Android phone at $150 CAPEX.
+      The factory doesn't care who made the component —
+      <em>it cares about the margin.</em>"
+    </p>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     ABOUT
+     ═══════════════════════════════════════ -->
+<section id="about">
+  <div class="wrap">
+    <div class="about-layout">
+
+      <div class="reveal">
+        <div class="eyebrow"><span class="eyebrow-text">§ 02 — The Engineer</span></div>
+        <h2 style="margin-bottom:2.5rem;">Self-taught.<br><em>Princeton-networked.</em><br>Production-focused.</h2>
+        <div class="about-body">
+          <p>
+            I'm Samiul Karim — a self-taught applied ML engineer based in Dhaka, building
+            production AI systems for domains that established labs ignore because the TAM
+            looks small from San Francisco. From Dhaka it looks like <strong>170 million people</strong>.
+          </p>
+          <p>
+            My background is unconventional: deep domain knowledge in garments manufacturing,
+            Bangladeshi agriculture, public health surveillance, and government document
+            processing — combined with a <strong>Princeton University network</strong> built
+            during an extended period as a Princeton alumni interviewer.
+          </p>
+          <p>
+            I work in long focused sessions. Every system in this portfolio was built to
+            production-grade standards — proper authentication, eval harnesses, retry logic,
+            secrets management — because demo-grade code teaches the wrong habits.
+          </p>
+          <p style="color:var(--ink3); font-style:italic; margin-top:2.5rem;">
+            Reach me at sam@stitchmark.space
+          </p>
+        </div>
+      </div>
+
+      <div class="reveal delay-1">
+        <ul class="cred-list">
+          <li class="cred-item">
+            <span class="cred-dot">◆</span>
+            <div>
+              <div class="cred-title">Princeton Alumni Network</div>
+              <div class="cred-sub">Former Princeton interviewer · active alumni connection</div>
+            </div>
+          </li>
+          <li class="cred-item">
+            <span class="cred-dot">◆</span>
+            <div>
+              <div class="cred-title">Toptal Application In Progress</div>
+              <div class="cred-sub">Applied ML Engineer track · portfolio submission</div>
+            </div>
+          </li>
+          <li class="cred-item">
+            <span class="cred-dot">◆</span>
+            <div>
+              <div class="cred-title">SPARRSO Partnership Discussions</div>
+              <div class="cred-sub">Bangladesh Space Research · FloodGuard deployment</div>
+            </div>
+          </li>
+          <li class="cred-item">
+            <span class="cred-dot">◆</span>
+            <div>
+              <div class="cred-title">Active Accelerator Applications</div>
+              <div class="cred-sub">M0NARQ Industrial AI · KrishiBot rural advisory</div>
+            </div>
+          </li>
+          <li class="cred-item">
+            <span class="cred-dot">◆</span>
+            <div>
+              <div class="cred-title">Four Production Systems</div>
+              <div class="cred-sub">Built at $0 cloud spend — not by accident, by design</div>
+            </div>
+          </li>
+          <li class="cred-item">
+            <span class="cred-dot">◆</span>
+            <div>
+              <div class="cred-title">GCP-Native Architecture</div>
+              <div class="cred-sub">Vertex AI RAG · Gemini API · Earth Engine · Cloud Run · Discovery Engine</div>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     EVOCATIVE BANNER — AI STAKES
+     ═══════════════════════════════════════ -->
+<div class="banner">
+  <div class="wrap">
+    <div style="max-width:860px; margin:0 auto; text-align:center;">
+      <p class="label" style="color:rgba(245,242,236,0.35); margin-bottom:2rem; text-align:center;">The opportunity</p>
+      <h2 class="reveal" style="font-size:clamp(2rem,5vw,4.5rem); margin-bottom:2rem;">
+        AI is the most consequential<br>technology since electricity.<br>
+        <em>Bangladesh has not yet had its turn.</em>
+      </h2>
+      <p class="reveal delay-1" style="color:rgba(245,242,236,0.55); font-size:clamp(0.95rem,1.4vw,1.1rem); max-width:640px; margin:0 auto; line-height:1.85;">
+        The infrastructure gap is closing. Foundation models run on free tiers. Satellite
+        data is open. Cloud credits exist precisely for this moment. What is missing is
+        not the technology — it is systems engineered for the actual conditions on the ground.
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     PROJECTS INDEX
+     ═══════════════════════════════════════ -->
+<section id="projects">
+  <div class="wrap">
+    <div class="eyebrow reveal"><span class="eyebrow-text">§ 03 — The Work</span></div>
+    <h2 class="reveal" style="margin-bottom:1.5rem;">Four systems.<br>Three verticals.<br><em>One city.</em></h2>
+    <p class="reveal delay-1" style="max-width:500px; margin-bottom:5rem;">
+      Each project below was built to production standards. None required paid cloud
+      credits to reach a working prototype.
+    </p>
+
+    <div>
+      <a href="docrag.html" class="proj-link-card reveal">
+        <span class="proj-num">01</span>
+        <div class="proj-name-wrap">
+          <div class="proj-cat">Legal Tech · RAG · Adversarial AI</div>
+          <div class="proj-name">DocRAG-Legal</div>
+        </div>
+        <span class="proj-status">Deployed ·</span>
+        <span class="proj-arrow">→</span>
+      </a>
+
+      <a href="erudite.html" class="proj-link-card reveal delay-1">
+        <span class="proj-num">02</span>
+        <div class="proj-name-wrap">
+          <div class="proj-cat">Admissions Intelligence · Bangladesh</div>
+          <div class="proj-name">Erudite V2</div>
+        </div>
+        <span class="proj-status">Pending Resources ·</span>
+        <span class="proj-arrow">→</span>
+      </a>
+
+      <a href="https://cricsight.stitchmark.space" target="_blank" rel="noopener noreferrer" class="proj-link-card reveal delay-2">
+        <span class="proj-num">03</span>
+        <div class="proj-name-wrap">
+          <div class="proj-cat">Sports Analytics · BPL Cricket</div>
+          <div class="proj-name">CricSight Powerplay</div>
+        </div>
+        <span class="proj-status">Live ·</span>
+        <span class="proj-arrow">→</span>
+      </a>
+
+      <a href="https://geospatial.stitchmark.space" target="_blank" rel="noopener noreferrer" class="proj-link-card reveal delay-3">
+        <span class="proj-num">04</span>
+        <div class="proj-name-wrap">
+          <div class="proj-cat">Geospatial AI · Disaster Response</div>
+          <div class="proj-name">FloodGuard-BD</div>
+        </div>
+        <span class="proj-status">In Development ·</span>
+        <span class="proj-arrow">→</span>
+      </a>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     GCP CREDITS APPLICATION
+     ═══════════════════════════════════════ -->
+<section id="gcp">
+  <div class="wrap">
+    <div class="gcp-intro reveal">
+      <div class="eyebrow"><span class="eyebrow-text">§ 04 — Google Cloud for Startups</span></div>
+      <h2 style="margin-bottom:1.5rem;">Architecture validated.<br><em>Compute is the<br>only remaining gate.</em></h2>
+      <p style="max-width:600px; margin-bottom:1rem;">
+        All projects are technically proven on free-tier infrastructure. The engineering
+        problems are solved. What scales impact is serving capacity — RAG corpus retrieval
+        at volume, Gemini API at production query loads, Cloud Run autoscaling.
+      </p>
+      <p style="max-width:600px; color:var(--ink3); font-style:italic;">
+        Projects are ranked below by social impact. Any credit allocation advances
+        the work. Larger allocations unlock proportionally greater reach.
+      </p>
+    </div>
+
+    <div class="credit-cards reveal delay-1">
+
+      <!-- CARD 1 -->
+      <div class="credit-card">
+        <div class="cc-rank">Impact Rank · 01 · Rural Agriculture</div>
+        <div class="cc-name">KrishiBot</div>
+        <p class="cc-mission">AI agricultural advisory for 57 million rural Bangladeshis with no smartphone access — delivered over SMS and USSD at $0.001 per query. The constraint is not the AI. It is the last mile.</p>
+        <div class="cc-min">Minimum: $500 · Vertex AI RAG + Cloud Run</div>
+        <ul class="cc-bullets">
+          <li>RAG corpus serving for BARC/DAE crop bulletins in Bengali</li>
+          <li>Gemini Flash API volume for SMS response generation at ~100k queries/month</li>
+          <li>Cloud Run serving for USSD/SMS gateway API at pilot scale</li>
+        </ul>
+        <p class="cc-more">Greater allocation adds: full Bengali NLP pipeline, multi-crop seasonal corpus, carrier USSD deployment.</p>
+      </div>
+
+      <!-- CARD 2 -->
+      <div class="credit-card">
+        <div class="cc-rank">Impact Rank · 02 · Admissions Equity</div>
+        <div class="cc-name">Erudite V2</div>
+        <p class="cc-mission">Forensic financial aid intelligence for high-need Bangladeshi students navigating elite US admissions — replacing generic chatbot advice with verified CDS audit data and structured visual counsel.</p>
+        <div class="cc-min">Minimum: $600 · Discovery Engine + Gemini Flash + Cloud Run</div>
+        <ul class="cc-bullets">
+          <li>Discovery Engine corpus serving for 70+ page per-university deep research reports</li>
+          <li>Gemini Flash synthesis at production applicant query volume</li>
+          <li>Cloud Run serving for the applicant-facing Next.js frontend</li>
+        </ul>
+        <p class="cc-more">Greater allocation adds: full corpus (15+ universities), Bangladesh-specific curriculum contextualization overlays.</p>
+      </div>
+
+      <!-- CARD 3 -->
+      <div class="credit-card">
+        <div class="cc-rank">Impact Rank · 03 · Disaster Response</div>
+        <div class="cc-name">FloodGuard-BD</div>
+        <p class="cc-mission">Near-real-time pixel-level flood maps from Sentinel-1 SAR for government disaster response. All-weather. No human annotation. No manual steps between satellite overpass and map delivery.</p>
+        <div class="cc-min">Minimum: $800 · Vertex AI Training + Prediction Endpoint</div>
+        <ul class="cc-bullets">
+          <li>Vertex AI Training job for Prithvi-100M fine-tuning (single T4, ~2 hrs)</li>
+          <li>Vertex AI Prediction endpoint for real-time inference on new satellite passes</li>
+          <li>Cloud Storage for COG tile archive and public flood map output</li>
+        </ul>
+        <p class="cc-more">Greater allocation adds: 4-month operational pilot, active learning loop with SPARRSO validation, public dashboard.</p>
+      </div>
+
+      <!-- CARD 4 -->
+      <div class="credit-card">
+        <div class="cc-rank">Impact Rank · 04 · Legal Access</div>
+        <div class="cc-name">DocRAG-Legal</div>
+        <p class="cc-mission">Contract risk intelligence with adversarial self-auditing. Bringing the evidentiary standards of a senior partner to every junior associate in Dhaka. Already deployed. Needs production serving scale.</p>
+        <div class="cc-min">Minimum: $700 · Vertex AI RAG Engine + Gemini API at volume</div>
+        <ul class="cc-bullets">
+          <li>Vertex AI RAG Engine corpus serving at ~10k queries/month production load</li>
+          <li>Gemini Pro synthesis + Flash adversarial judge at concurrent volume</li>
+          <li>Cloud Run autoscaling (0–5 instances) for SaaS-tier user load</li>
+        </ul>
+        <p class="cc-more">Greater allocation adds: Bangladesh-specific corpus, Bengali-language query handling, SaaS tier launch at $149/month.</p>
+      </div>
+
+    </div>
+
+    <div class="gcp-footer-note reveal delay-2">
+      <p>
+        GCP account: realsamkarim@gmail.com &nbsp;·&nbsp;
+        Project ID: project-a1f62154-a7ad-4b37-93b &nbsp;·&nbsp;
+        Billing account: 0146CA-92CD30-CA4527<br>
+        All projects are architecturally GCP-native. The existing $1,000 Gen AI App Builder credit has
+        validated the DocRAG-Legal architecture end-to-end on Vertex AI RAG Engine + Discovery Engine.
+        None of these systems are portable to other clouds without a full rewrite.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE 02 -->
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <span class="marquee-item">Vertex AI RAG Engine</span>
+    <span class="marquee-dot">◆</span>
+    <span class="marquee-item">Gemini Flash · Pro</span>
+    <span class="marquee-dot">◆</span>
+    <span class="marquee-item">Google Earth Engine</span>
+    <span class="marquee-dot">◆</span>
+    <span class="marquee-item">Discovery Engine</span>
+    <span class="marquee-dot">◆</span>
+    <span class="marquee-item">Cloud Run</span>
+    <span class="marquee-dot">◆</span>
+    <span class="marquee-item">Firebase Auth</span>
+    <span class="marquee-dot">◆</span>
+    <span class="marquee-item">Modal Persistence</span>
+    <span class="marquee-dot">◆</span>
+    <span class="marquee-item">SHA-256 Provenance</span>
+    <span class="marquee-dot">◆</span>
+    <span class="marquee-item">Vertex AI RAG Engine</span>
+    <span class="marquee-dot">◆</span>
+    <span class="marquee-item">Gemini Flash · Pro</span>
+    <span class="marquee-dot">◆</span>
+    <span class="marquee-item">Google Earth Engine</span>
+    <span class="marquee-dot">◆</span>
+    <span class="marquee-item">Discovery Engine</span>
+    <span class="marquee-dot">◆</span>
+    <span class="marquee-item">Cloud Run</span>
+    <span class="marquee-dot">◆</span>
+    <span class="marquee-item">Firebase Auth</span>
+    <span class="marquee-dot">◆</span>
+    <span class="marquee-item">Modal Persistence</span>
+    <span class="marquee-dot">◆</span>
+    <span class="marquee-item">SHA-256 Provenance</span>
+    <span class="marquee-dot">◆</span>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        Stitchmark | Space<br>
+        sam@stitchmark.space<br>
+        Dhaka, Bangladesh · 2026
+      </div>
+      <div class="footer-links">
+        <a href="docrag.html">DocRAG-Legal</a>
+        <a href="erudite.html">Erudite V2</a>
+        <a href="https://cricsight.stitchmark.space" target="_blank">CricSight</a>
+        <a href="https://geospatial.stitchmark.space" target="_blank">FloodGuard</a>
+      </div>
+      <div class="footer-brand" style="text-align:right;">
+        Applied ML · South Asia<br>
+        Built on Google Cloud<br>
+        © 2026
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="main.js"></script>
 </body>
 </html>
